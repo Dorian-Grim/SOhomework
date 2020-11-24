@@ -242,6 +242,8 @@ chapter_four_files() {
 
 
 cleanup(){
+    rmdir dir1
+    rm -f newfile.txt
     sudo deluser testu
     sudo delgroup testg
     sudo rm -rf /home/testh
