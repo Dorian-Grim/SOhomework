@@ -226,18 +226,56 @@ chapter_four_files() {
     pause
     sudo tar cvf $file_name $temp_path
 
-    
     temp_path="/etc"
-    file_name="new_gzip_archive.tar.gz"
+    file_name2="new_gzip_archive.tar.gz"
     echo ""
     echo -e "${GREEN}Archive files with 'tar' and compressed with 'gzip'${STD}"
-    echo "sudo tar cvf ${file_name} ${temp_path}"
+    echo "sudo tar cvf ${file_name2} ${temp_path}"
     pause
-    sudo tar czvf $file_name $temp_path
+    sudo tar czvf $file_name2 $temp_path
 
     temp_path="~/"
-
     
+}
+chapter_four_redirection(){
+    list_file="listare.txt"
+    echo ""
+    echo -e "${GREEN}Output 'ls' result to file...${STD}"
+    echo "ls > ${list_file}"
+    pause
+    ls > $list_file
+
+    echo ""
+    echo -e "${GREEN}Display ${list_file} using 'cat' command${STD}"
+    echo "cat ${list_file}t"
+    pause
+    cat $list_file
+
+    echo ""
+    echo -e "${GREEN}Add 'data' command output at the end of ${list_file}${STD}"
+    echo "date >> ${list_file}"
+    pause
+    date >> $list_file
+
+    error_file="erori.txt"
+    echo ""
+    echo -e "${GREEN}Store error of 'cp' command to ${error_file}${STD}"
+    echo "cp $list_file 2> $error_file"
+    pause
+    cp $list_file 2> $error_file
+
+    echo ""
+    echo -e "${GREEN}Store the result and errors of 'ls' command to ${list_file}${STD}"
+    echo "ls fisier1.txt fisier4.txt 2>&1 > ${list_file}"
+    pause
+    ls fisier1.txt fisier4.txt 2>&1 > $list_file
+
+    echo ""
+    echo -e "${GREEN}Display contents of ${list_file} using 'cat' command${STD}"
+    echo "cat ${list_file}t"
+    pause
+    cat $list_file
+
 }
 
 
