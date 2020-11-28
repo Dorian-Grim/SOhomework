@@ -7,7 +7,7 @@ STD='\033[0;0;39m'
 GREEN='\033[0;32m'
 
 clear_screen() {
-    clear && echo -en "\e[3J"
+    clear && echo -en "\e[3J" # the second part is a fix for the console scroolbar
 }
 
 pause(){
@@ -247,7 +247,7 @@ chapter_four_redirection(){
 
     echo ""
     echo -e "${GREEN}Display ${list_file} using 'cat' command${STD}"
-    echo "cat ${list_file}t"
+    echo "cat ${list_file}"
     pause
     cat $list_file
 
@@ -256,6 +256,12 @@ chapter_four_redirection(){
     echo "date >> ${list_file}"
     pause
     date >> $list_file
+
+    echo ""
+    echo -e "${GREEN}Display ${list_file} using 'cat' command${STD}"
+    echo "cat ${list_file}t"
+    pause
+    cat $list_file
 
     error_file="erori.txt"
     echo ""
@@ -278,15 +284,204 @@ chapter_four_redirection(){
 
 }
 
+chapter_four_rights() {
+
+    
+    file=fisier.txt
+    echo ""
+    echo -e "${GREEN}Create a new file called ${file} to inspect rights${STD}"
+    echo "touch ${file}"
+    pause
+    touch $file
+
+    echo ""
+    echo -e "${GREEN}List files with details${STD}"
+    echo "ls -l"
+    pause
+    ls -l $file
+
+    echo ""
+    echo -e "${GREEN}Set access rights to 777${STD}"
+    echo "chmod 777 ${file}"
+    pause
+    chmod 777 $file
+
+    echo ""
+    echo -e "${GREEN}List files with details${STD}"
+    echo "ls -l"
+    pause
+    ls -l $file
+    
+    echo ""
+    echo -e "${GREEN}Set access rights using literal form${STD}"
+    echo "chmod u=rwx,g=r,o- ${file}"
+    pause
+    chmod u=rwx,g=r,o=- $file
+
+    echo ""
+    echo -e "${GREEN}List files with details${STD}"
+    echo "ls -l"
+    pause
+    ls -l $file
+
+}
+
+chapter_four_find() {
+    pattern=".bashrc"
+    find_path="/home"
+    echo ""
+    echo -e "${GREEN}Find files matching '${pattern}' in the ${find_path} ${STD}"
+    echo "find ${find_path} -name ${pattern}"
+    pause
+    sudo find $find_path -name $pattern
+
+    find_path="/usr"
+    size=+500k
+    echo ""
+    echo -e "${GREEN}Find files larger '${size}' in the ${find_path} ${STD}"
+    echo "find ${find_path} -size ${size}"
+    pause
+    sudo find $find_path -size $size
+
+    pattern="pwd"
+    echo ""
+    echo -e "${GREEN}Find files containing '${pattern}' using the 'locate' command ${STD}"
+    echo "locate ${pwd}"
+    pause
+    locate $pattern
+
+    pattern="ls"
+    echo ""
+    echo -e "${GREEN}Find '${pattern}' using the 'whereis' command ${STD}"
+    echo "whereis ${pattern}"
+    pause
+    whereis $pattern
+
+    pattern="bash"
+    echo ""
+    echo -e "${GREEN}Find the path of '${pattern}' using the 'which' command ${STD}"
+    echo "which ${pattern}"
+    pause
+    which $pattern
+
+    pattern="cd"
+    pattern2="cat"
+    echo ""
+    echo -e "${GREEN}Determien if '${pattern}/${patter2}' is a builtin/external/allias command ${STD}"
+    echo "type ${pattern}; type ${pattern2}"
+    pause
+    type $pattern; type $pattern2
+
+    pattern="/bin/id"
+    echo ""
+    echo -e "${GREEN}Find the file type of '${pattern}' using the 'file' command ${STD}"
+    echo "file ${pattern}"
+    pause
+    file $pattern
+}
+
+chapter_four_disc_state() {
+    echo ""
+    echo -e "${GREEN}Display mounted file systems${STD}"
+    echo "mount | more"
+    pause
+    mount
+
+    echo ""
+    image="image.img"
+    echo -e "${GREEN}Create and empty disk image ${STD}"
+    echo "dd if=/dev/zero of=${image} iflag=fullblock bs=1M count=500"
+    pause
+    sudo dd if=/dev/zero of=$image iflag=fullblock bs=1M count=500 && sync
+
+    echo ""
+    loopdev="loop9"
+    echo -e "${GREEN}Create a loop device with the newly created disk image as /dev/${loopdev} ${STD}"
+    echo "sudo losetup ${loopdev} ${image}"
+    pause
+    sudo sudo losetup $loopdev $image
+
+    echo ""
+    echo -e "${GREEN}Create a new GPT partition table on /dev/${loopdev} using 'parted' command ${STD}"
+    echo -e "and a partition using the whole disk space${STD}"
+    echo "sudo parted --script /dev/${loopdev} \
+          mklabel gpt \
+          mkpart primary ext4 1MiB 500MB"
+    pause
+    sudo parted --script /dev/${loopdev} \
+         mklabel gpt \
+         mkpart primary ext4 1MiB 500MB
+
+    
+    echo ""
+    echo -e "${GREEN}Format the newly created partition /dev/${loopdev}p1 using ${STD}"
+    echo -e "${GREEN}the 'mkfs' command ${STD}"
+    echo "sudo mkfs -t ext4 /dev/${loopdev}p1"
+    pause
+    sudo mkfs -t ext4 /dev/${loopdev}p1
+
+    echo ""
+    echo -e "${GREEN}We will mount /dev/${loopdev}p1 to /mnt/loop9 ${STD}"
+    echo "sudo mount /dev/${loopdev}p1 /mnt/loop9"
+    pause
+    sudo mkdir -p /mnt/loop9
+    sudo mount /dev/${loopdev}p1 /mnt/loop9
+
+    echo ""
+    echo -e "${GREEN}Display mounted file system${STD}"
+    echo "mount | grep ${loopdev}"
+    pause
+    mount
+
+    echo ""
+    echo -e "${GREEN}Display disk utilisation${STD}"
+    echo "df -h | grep ^/dev"
+    pause
+
+    echo ""
+    echo -e "${GREEN}To check the filesystem for errors we need to firstly unmount it"
+    echo -e "then run the 'fsck' command against it ${STD}"
+    echo "umount /dev/${loopdev}p1 or umount /mnt/loop9"
+    echo "sudo fsck -t ext4 /dev/${loopdev}p1"
+    pause
+    sudo umount /dev/${loopdev}p1
+    sudo fsck -t ext4 /dev/${loopdev}p1
+
+    echo ""
+    echo -e "${GREEN}Cleaning up...${STD}"
+    echo "sudo umount /dev/loop9"
+    echo "sudo losetup -d /dev/${loopdev}"
+    echo "sudo rm  -f image.img"
+    echo "sudo rmdir /mnt/loop9"
+    pause
+    sudo umount /dev/loop9
+    sudo losetup -d /dev/${loopdev}
+    sudo -f rm $image
+    sudo rmdir /mnt/loop9
+
+
+}
 
 cleanup(){
-    rmdir dir1
-    rm -f newfile.txt
+    echo "Cleaning up..."
+    pause
+    sudo rmdir dir1
+    sudo rm -f newfile.txt
+    sudo rm -f listare.txt
+    sudo rm -f erori.txt
     sudo deluser testu
     sudo delgroup testg
     sudo rm -rf /home/testh
-    rm -f new_archive.tar
-    rm -f new_gzip_archive.tar.gz
+    sudo rm -f new_archive.tar
+    sudo rm -f new_gzip_archive.tar.gz
+    sudo rm -f fisier.txt
+    
+    sudo umount /dev/loop9
+    sudo losetup -d /dev/loop9
+    sudo rm -f image.img
+    sudo rmdir /mnt/loop9
+
+    
 }
 
 while :
@@ -339,7 +534,10 @@ case $choice in
     clear_screen
     echo "Chapter Four - File Systems "
     echo -e "(a) Working with files"
-    echo -e "(b) Item 2"
+    echo -e "(b) Output redirection"
+    echo -e "(c) Access rights"
+    echo -e "(d) Find files"
+    echo -e "(e) Drives and mounts"
     echo -e "(x) Return to main menu"
     echo
     echo -n "Please enter your choice: "
@@ -350,8 +548,24 @@ case $choice in
         chapter_four_files
         pause
         ;;
-        "b"|"b")
+        "b"|"B")
         clear_screen
+        chapter_four_redirection
+        pause
+        ;;
+        "c"|"C")
+        clear_screen
+        chapter_four_rights
+        pause
+        ;;
+        "d"|"D")
+        clear_screen
+        chapter_four_find
+        pause
+        ;;
+        "e"|"E")
+        clear_screen
+        chapter_four_disc_state
         pause
         ;;
         "x"|"X")
@@ -367,8 +581,6 @@ case $choice in
     ;;
     "z"|"Z")
     clear_screen
-    echo "Cleaning up..."
-    pause
     cleanup
     clear_screen
     echo -e "${GREEN}Thank you!${STD}"
