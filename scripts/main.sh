@@ -123,12 +123,6 @@ chapter_three_packages() {
     sudo apt clean
 
     echo ""
-    echo -e "${GREEN}Clean the local cache... ${STD}"
-    echo "sudo apt clean"
-    pause
-    sudo apt clean
-
-    echo ""
     echo -e "${GREEN}Update the package list... ${STD}"
     echo "sudo apt update"
     pause
@@ -234,7 +228,7 @@ chapter_four_files() {
     pause
     sudo tar czvf $file_name2 $temp_path
 
-    temp_path="~/"
+    temp_path=$HOME
     
 }
 chapter_four_redirection(){
@@ -367,7 +361,7 @@ chapter_four_find() {
     pattern="cd"
     pattern2="cat"
     echo ""
-    echo -e "${GREEN}Determien if '${pattern}/${patter2}' is a builtin/external/allias command ${STD}"
+    echo -e "${GREEN}Determien if '${pattern}/${pattern2}' is a builtin/external/allias command ${STD}"
     echo "type ${pattern}; type ${pattern2}"
     pause
     type $pattern; type $pattern2
@@ -388,6 +382,12 @@ chapter_four_disc_state() {
     mount
 
     echo ""
+    echo -e "${GREEN}Display mounted file systems at system startup${STD}"
+    echo "sudo cat /etc/mtab"
+    pause
+    sudo cat /etc/mtab | more
+
+    echo ""
     image="image.img"
     echo -e "${GREEN}Create and empty disk image ${STD}"
     echo "dd if=/dev/zero of=${image} iflag=fullblock bs=1M count=500"
@@ -403,7 +403,7 @@ chapter_four_disc_state() {
 
     echo ""
     echo -e "${GREEN}Create a new GPT partition table on /dev/${loopdev} using 'parted' command ${STD}"
-    echo -e "and a partition using the whole disk space${STD}"
+    echo -e "and a EXT4 partition using the whole disk space${STD}"
     echo "sudo parted --script /dev/${loopdev} \
           mklabel gpt \
           mkpart primary ext4 1MiB 500MB"
@@ -462,8 +462,108 @@ chapter_four_disc_state() {
 
 }
 
+chapter_five_processes() {
+    
+    echo ""
+    echo -e "${GREEN}Display processes using the 'ps' command${STD}"
+    echo "ps"
+    pause
+    ps
+
+    echo ""
+    echo -e "${GREEN}Display ALL processes using the 'ps'${STD}"
+    echo "ps -A"
+    pause
+    ps -A
+
+    echo ""
+    echo -e "${GREEN}Display processes using the 'ps' command"
+    echo -e "just for the 'root' user ${STD}"
+    echo "ps -u root"
+    pause
+    ps -u root
+
+    echo ""
+    echo -e "${GREEN}Display processes using the 'ps' command"
+    echo -e "with details and formated output${STD}"
+    echo "ps -F"
+    pause
+    ps -F
+    
+    echo ""
+    echo -e "${GREEN}Display process hierarhy using the 'pstree' command ${STD}"
+    echo "pstree"
+    pause
+    pstree
+
+    echo ""
+    echo -e "${GREEN}Display processes in realtime using the 'top' command ${STD}"
+    echo "top -bn 1 2>&1"
+    pause
+    toptop -bn 1 2>&1
+
+    echo ""
+    echo -e "${GREEN}Display the contents of the '/proc' file system ${STD}"
+    echo "ls /proc"
+    pause
+    ls /proc
+
+    echo ""
+    echo -e "${GREEN}Display the contents of the '/proc' file system ${STD}"
+    echo "ls /proc"
+    pause
+    ls /proc
+
+    echo ""
+    echo -e "${GREEN}Display cpu, memory, partitions and uptime info from '/proc' ${STD}"
+    echo "head /proc/cpuinfo"
+    pause
+    head /proc/cpuinfo
+    echo ""
+    echo "head /proc/meminfo"
+    pause
+    head /proc/meminfo
+    echo ""
+    pause
+    echo "tail /proc/partitions"
+    pause
+    tail /proc/partitions
+    echo ""
+    echo "cat /proc/uptime"
+}
+
+chapter_five_background() {
+    echo ""
+    echo -e "${GREEN}Run some processes in the background${STD}"
+    echo "sudo updatedb &"
+    pause
+    sudo updatedb &
+    echo "top &"
+    pause
+    top &
+    
+    echo ""
+    echo -e "${GREEN}Display current jobs${STD}"
+    echo "jobs"
+    pause
+    jobs
+
+    echo ""
+    echo -e "${GREEN}Run a process as a daemon${STD}"
+    echo "sudo nohup updatedb &"
+    pause
+    sudo nohup updatedb &
+
+    echo ""
+    echo -e "${GREEN}Display all processes${STD}"
+    echo "sudo ps ax"
+    pause
+    sudo ps ax
+
+}
+
 cleanup(){
-    echo "Cleaning up..."
+    echo -e "${GREEN}Cleaning up...${STD}"
     pause
     sudo rmdir dir1
     sudo rm -f newfile.txt
@@ -475,26 +575,38 @@ cleanup(){
     sudo rm -f new_archive.tar
     sudo rm -f new_gzip_archive.tar.gz
     sudo rm -f fisier.txt
-    
+
     sudo umount /dev/loop9
     sudo losetup -d /dev/loop9
     sudo rm -f image.img
     sudo rmdir /mnt/loop9
 
-    
+    clear_screen
+    echo -e "${GREEN}Done!${STD}"
 }
 
+# Entry point
+entrypoint() {
 while :
 do
 echo "Main Menu:"
-echo -e "(a) Chapter Three "
-echo -e "(b) Chapter Four - File Systems"
+echo -e "(a) Chapter  3 - Users and packages"
+echo -e "(b) Chapter  4 - File Systems"
+echo -e "(c) Chapter  5 - Processes"
+echo -e "(d) Chapter  6 - System boot & init" 
+echo -e "(e) Chapter  7 - Hardware analysis "
+echo -e "(f) Chapter  8 - Network config"
+echo -e "(g) Chapter  9 - Network services"
+echo -e "(h) Chapter 11 - Compiling & linking"
+echo -e "(i) Chapter 12 - More shell scripting?"
+echo -e "(y) Cleanup!"
 echo -e "(z) Exit"
 echo
 echo -n "Please enter your choice: "
+
 read choice
 case $choice in
-    "a"|"A")
+    "a"|"A"|"3")
     while :
     do
     clear_screen
@@ -506,12 +618,12 @@ case $choice in
     echo -n "Please enter your choice: "
     read choice1
     case $choice1 in
-        "a"|"A")
+        "a"|"A"|"1")
         clear_screen
         chapter_three_manage
         pause
         ;;
-        "b"|"b")
+        "b"|"B"|"2")
         clear_screen
         chapter_three_packages
         pause
@@ -528,7 +640,7 @@ case $choice in
     done
     ;;
     
-    "b"|"B")
+    "b"|"B"|"4")
     while :
     do
     clear_screen
@@ -543,35 +655,40 @@ case $choice in
     echo -n "Please enter your choice: "
     read choice2
     case $choice2 in
-        "a"|"A")
+        "a"|"A"|"1")
         clear_screen
         chapter_four_files
         pause
         ;;
-        "b"|"B")
+
+        "b"|"B"|"2")
         clear_screen
         chapter_four_redirection
         pause
         ;;
-        "c"|"C")
+
+        "c"|"C"|"3")
         clear_screen
         chapter_four_rights
         pause
         ;;
-        "d"|"D")
+
+        "d"|"D"|"4")
         clear_screen
         chapter_four_find
         pause
         ;;
-        "e"|"E")
+
+        "e"|"E"|"5")
         clear_screen
         chapter_four_disc_state
         pause
         ;;
-        "x"|"X")
+        "x"|"X"|"0")
         clear_screen
         break
         ;;
+
         *)
         echo -e "${RED}[${choice2}]${STD} is not a valid option"
         pause
@@ -579,20 +696,75 @@ case $choice in
     esac
     done
     ;;
+
+    "c"|"C"|"5")
+    while :
+    do
+    clear_screen
+    echo "Chapter Five "
+    echo -e "(a) Process information"
+    echo -e "(b) Jobs, Daemons & background processes"
+    echo -e "(c) Signals"
+    echo -e "(x) Return to main menu"
+    echo
+    echo -n "Please enter your choice: "
+    read choice1
+    case $choice1 in
+        "a"|"A"|"1")
+        clear_screen
+        chapter_five_processes
+        pause
+        ;;
+
+        "b"|"B"|"2")
+        clear_screen
+        chapter_five_background
+        pause
+        ;;
+
+        "c"|"C"|"3")
+        clear_screen
+        chapter_five_signals
+        pause
+        ;;
+
+        "x"|"X")
+        clear_screen
+        break
+        ;;
+        *)
+        echo -e "${RED}[${choice1}]${STD} is not a valid option"
+        pause
+        ;;
+    esac
+    done
+    ;;
+
+    "y"|"Y")
+    clear_screen
+    cleanup
+    pause
+    ;;
+
     "z"|"Z")
     clear_screen
     cleanup
     clear_screen
-    echo -e "${GREEN}Thank you!${STD}"
+    echo -e "${GREEN}Thank you for your time!${STD}"
     pause
     clear
-    exit
+    exit 0
     ;;
-        *)
-        echo -e "${RED}[${choice}]${STD} is not a valid option"
-        pause
-        clear_screen
-        ;;
+
+    *)
+    echo -e "${RED}[${choice}]${STD} is not a valid option"
+    pause
+    clear_screen
+    ;;
 
 esac
 done
+}
+
+entrypoint
+
