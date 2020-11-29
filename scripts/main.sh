@@ -560,7 +560,14 @@ chapter_five_background() {
     pause
     sudo ps ax
 
+    echo ""
+    echo -e "${GREEN}Display all 'kill' signals${STD}"
+    echo "kill -l"
+    pause
+    kill -l
+
 }
+
 
 cleanup(){
     echo -e "${GREEN}Cleaning up...${STD}"
@@ -585,7 +592,7 @@ cleanup(){
     echo -e "${GREEN}Done!${STD}"
 }
 
-# Entry point
+
 entrypoint() {
 while :
 do
@@ -594,7 +601,7 @@ echo -e "(a) Chapter  3 - Users and packages"
 echo -e "(b) Chapter  4 - File Systems"
 echo -e "(c) Chapter  5 - Processes"
 echo -e "(d) Chapter  6 - System boot & init" 
-echo -e "(e) Chapter  7 - Hardware analysis "
+echo -e "(e) Chapter  7 - Hardware analysis"
 echo -e "(f) Chapter  8 - Network config"
 echo -e "(g) Chapter  9 - Network services"
 echo -e "(h) Chapter 11 - Compiling & linking"
@@ -604,8 +611,8 @@ echo -e "(z) Exit"
 echo
 echo -n "Please enter your choice: "
 
-read choice
-case $choice in
+read choice_main
+case $choice_main in
     "a"|"A"|"3")
     while :
     do
@@ -616,8 +623,8 @@ case $choice in
     echo -e "(x) Return to main menu"
     echo
     echo -n "Please enter your choice: "
-    read choice1
-    case $choice1 in
+    read choice_sub
+    case $choice_sub in
         "a"|"A"|"1")
         clear_screen
         chapter_three_manage
@@ -633,7 +640,7 @@ case $choice in
         break
         ;;
         *)
-        echo -e "${RED}[${choice1}]${STD} is not a valid option"
+        echo -e "${RED}[${choice_sub}]${STD} is not a valid option"
         pause
         ;;
     esac
@@ -653,8 +660,8 @@ case $choice in
     echo -e "(x) Return to main menu"
     echo
     echo -n "Please enter your choice: "
-    read choice2
-    case $choice2 in
+    read choice_sub
+    case $choice_sub in
         "a"|"A"|"1")
         clear_screen
         chapter_four_files
@@ -684,13 +691,14 @@ case $choice in
         chapter_four_disc_state
         pause
         ;;
+
         "x"|"X"|"0")
         clear_screen
         break
         ;;
 
         *)
-        echo -e "${RED}[${choice2}]${STD} is not a valid option"
+        echo -e "${RED}[${choice_sub}]${STD} is not a valid option"
         pause
         ;;
     esac
@@ -703,13 +711,12 @@ case $choice in
     clear_screen
     echo "Chapter Five "
     echo -e "(a) Process information"
-    echo -e "(b) Jobs, Daemons & background processes"
-    echo -e "(c) Signals"
+    echo -e "(b) Jobs, Daemons, Background processes & Signals"
     echo -e "(x) Return to main menu"
     echo
     echo -n "Please enter your choice: "
-    read choice1
-    case $choice1 in
+    read choice_sub
+    case $choice_sub in
         "a"|"A"|"1")
         clear_screen
         chapter_five_processes
@@ -722,18 +729,12 @@ case $choice in
         pause
         ;;
 
-        "c"|"C"|"3")
-        clear_screen
-        chapter_five_signals
-        pause
-        ;;
-
         "x"|"X")
         clear_screen
         break
         ;;
         *)
-        echo -e "${RED}[${choice1}]${STD} is not a valid option"
+        echo -e "${RED}[${choice_sub}]${STD} is not a valid option"
         pause
         ;;
     esac
@@ -757,7 +758,7 @@ case $choice in
     ;;
 
     *)
-    echo -e "${RED}[${choice}]${STD} is not a valid option"
+    echo -e "${RED}[${choice_main}]${STD} is not a valid option"
     pause
     clear_screen
     ;;
@@ -766,5 +767,6 @@ esac
 done
 }
 
+# Entry point
 entrypoint
 
