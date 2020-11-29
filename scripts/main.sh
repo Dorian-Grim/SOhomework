@@ -568,6 +568,15 @@ chapter_five_background() {
 
 }
 
+chapter_eleven_asd()
+{
+    echo ""
+    echo -e "${GREEN}Run a process as a daemon${STD}"
+    echo "echo \"prima mea comanda\""
+    pause
+    echo "prima mea comanda"
+}
+
 
 cleanup(){
     echo -e "${GREEN}Cleaning up...${STD}"
