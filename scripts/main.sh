@@ -2,6 +2,7 @@
 
 #trap '' SIGINT SIGQUIT SIGTSTP
 
+BLUE='\e[34m'
 RED='\033[0;41;30m'
 STD='\033[0;0;39m'
 GREEN='\033[0;32m'
@@ -17,7 +18,10 @@ pause(){
 
 clear_screen
 
-
+run_command(){
+    read -e -p "Run this command? [y/n] " YN
+    if [[ {$YN,,} =~ "y" || $YN == "" ]]; then true return; else false return; fi;
+}
 
 chapter_three_manage() {
     echo ""
@@ -568,13 +572,17 @@ chapter_five_background() {
 
 }
 
-chapter_eleven_asd()
-{
+chapter_eleven_compiling(){
     echo ""
-    echo -e "${GREEN}Run a process as a daemon${STD}"
-    echo "echo \"prima mea comanda\""
-    pause
-    echo "prima mea comanda"
+    echo -e "COMMAND: ${BLUE}apg-get install gcc libc6-dev manpages-dev glibc-doc make
+${GREEN}This will install necessary packages for developing C apps under Ubuntu (gcc, libc6-dev).
+It is recomended to install the manual (manpages-dev) and the documentation of the library (glibc-doc).
+Also the make utility (make)${STD}"
+    if run_command == 1; then 
+    echo -e "${BLUE}apg-get install gcc libc6-dev manpages-dev glibc-doc make${STD}"
+    apt-get install gcc libc6-dev manpages-dev glibc-doc make
+    else clear_screen;fi
+
 }
 
 
@@ -632,8 +640,8 @@ case $choice_main in
     echo -e "(x) Return to main menu"
     echo
     echo -n "Please enter your choice: "
-    read choice_sub
-    case $choice_sub in
+    read ch3
+    case $ch3 in 
         "a"|"A"|"1")
         clear_screen
         chapter_three_manage
@@ -669,8 +677,8 @@ case $choice_main in
     echo -e "(x) Return to main menu"
     echo
     echo -n "Please enter your choice: "
-    read choice_sub
-    case $choice_sub in
+    read ch4
+    case $ch4 in
         "a"|"A"|"1")
         clear_screen
         chapter_four_files
@@ -724,8 +732,8 @@ case $choice_main in
     echo -e "(x) Return to main menu"
     echo
     echo -n "Please enter your choice: "
-    read choice_sub
-    case $choice_sub in
+    read ch5
+    case $ch5 in
         "a"|"A"|"1")
         clear_screen
         chapter_five_processes
@@ -749,6 +757,36 @@ case $choice_main in
     esac
     done
     ;;
+    
+    "h"|"H"|"11")
+    while :
+    do
+    clear_screen
+    echo "Chapter Eleven "
+    echo -e "(a) Compiling"
+    echo -e "(x) Return to main menu"
+    echo
+    echo -n "Please enter your choice: "
+    read ch11
+    case $ch11 in
+        "a"|"A"|"1")
+        clear_screen
+        chapter_eleven_compiling
+        pause
+        ;;
+
+        "x"|"X")
+        clear_screen
+        break
+        ;;
+        *)
+        echo -e "${RED}[${choice_sub}]${STD} is not a valid option"
+        pause
+        ;;
+    esac
+    done
+    ;;
+
 
     "y"|"Y")
     clear_screen
