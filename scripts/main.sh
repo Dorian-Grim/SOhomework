@@ -573,7 +573,7 @@ chapter_five_background() {
 }
 
 chapter_eleven_compiling(){
-    aptGet="apg-get install gcc libc6-dev manpages-dev glibc-doc make"
+    aptGet="apt-get install gcc libc6-dev manpages-dev glibc-doc make"
     createC="echo '#include <stdio.h>
     
 main()
@@ -593,7 +593,7 @@ Also the make utility (make)${STD}"
 
     echo ""
     echo -e "COMMAND: ${BLUE}$createC
-${GREEN}This will create a file named myCscript, with the c extension. 
+${GREEN}This will create a file named myCscript, with the c extension, along with the contents provided.
 It will be used further in chapter 11.${STD}"
     if run_command == 1; then 
     echo -e "${BLUE}$createC${STD}"
