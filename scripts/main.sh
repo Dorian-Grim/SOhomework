@@ -607,6 +607,54 @@ It will be used further in chapter 11.${STD}")
     runOther=([1]="./my_other_exec" [2]="${GREEN}Run previously obtained executable file.${STD}")
     demoWall=([1]="gcc -Wall myCscript.c -o my_exec" [2]="The program compiled was intentionally not respecting C standards (main is missing it's type, and the return is absent), by default the compiler won't display
 any warning or errors. This can be changed by using the -Wall (warnings all) which tells the compiler to display warning messages for non-standard use of code.")
+    multipleSources=([1]="echo '#include <stdio.h>
+#include \"func.h\"
+#define NUM 10
+
+int main()
+{
+    printf(\"Suma (%d) - %d\\n\",NUM, sum(NUM));
+    printf(\"Suma-alternanta(%d) = %d\\n\", NUM, sumalt(NUM));
+    return 0;
+}' > main.c
+
+echo '#ifndef FUNC_H_
+#define FUNC_H_
+
+int sum(int n);
+int sumalt(int n);
+
+#endif' > func.h
+
+echo 'int sum(int n)
+{
+    int sum = 0;
+    for (int i = 1; i <= n; sum += i++);
+    return sum;
+}' > sum.c
+
+echo '#include \"func.h\"
+int sumalt(int n)
+{
+    int sum = 0;
+    for (int i = 1; i <= n; sum += i % 2 == 0 ? i++ * -1 : i++);
+    return sum;
+}' > sumalt.c
+
+gcc -Wall main.c sum.c sumalt.c -o exec_multiple
+
+./exec_multiple" [2]="This next command demonstrates multiple source files. In this given example main.c contains the main function,
+while sum.c and sumalt.c contain the implementations of the functions sum and sumalt. The func.h file hold the headers (declarations) of these functions.
+
+To note, if you choose to execute these commands, the following taks will be performed:
+    1. Creation of main.c
+    2. Creation of func.h
+    3. Creation of sum.c
+    4. Creation of sumalt.c
+    5. Compiling all files into exec_multiple executable file
+    6. Running of the executable file
+    
+PS: don't worry, they're perfectly safe")
 
     run_command  "${aptGet[1]}" "${aptGet[2]}"
     run_command  "${createC[1]}" "${createC[2]}"
@@ -617,7 +665,7 @@ any warning or errors. This can be changed by using the -Wall (warnings all) whi
     run_command  "${oCanBeAnyWhere[1]}" "${oCanBeAnyWhere[2]}"
     run_command  "${runOther[1]}" "${runOther[2]}"
     run_command  "${demoWall[1]}" "${demoWall[2]}"
-    
+    run_command  "${multipleSources[1]}" "${multipleSources[2]}"
 
 
 }
@@ -646,6 +694,12 @@ cleanup(){
     sudo rm -f a.out
     sudo rm -f my_exec
     sudo rm -f my_other_exec
+    sudo rm -f exec_multiple
+    sudo rm -f func.h
+    sudo rm -f main.c
+    sudo rm -f myCscript.c
+    sudo rm -f sum.c
+    sudo rm -f sumalt.c
 
     clear_screen
     echo -e "${GREEN}Done!${STD}"
