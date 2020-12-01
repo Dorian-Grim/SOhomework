@@ -16,11 +16,27 @@ pause(){
 }
 
 
+
 clear_screen
 
-run_command(){
+run_command_prompt(){
     read -e -p "Run this command? [y/n] " YN
     if [[ {$YN,,} =~ "y" || $YN == "" ]]; then true return; else false return; fi;
+}
+
+run_command(){
+    cmd=$1
+    desc=$2
+
+    echo ""
+    echo -e "COMMAND: ${BLUE}${cmd}
+${GREEN}${desc}${STD}"
+    if run_command_prompt == 1; then 
+    echo -e "${BLUE}${cmd}${STD}"
+    eval "${cmd}"
+    echo ""
+    echo -e "${GREEN}Done!${STD}"
+    else clear_screen;fi
 }
 
 chapter_three_manage() {
@@ -573,98 +589,33 @@ chapter_five_background() {
 }
 
 chapter_eleven_compiling(){
-    aptGet="apt-get install gcc libc6-dev manpages-dev glibc-doc make"
-    createC="echo '#include <stdio.h>
+    aptGet=([1]="apt-get install gcc libc6-dev manpages-dev glibc-doc make" [2]="${GREEN}This will install necessary packages for developing C apps under Ubuntu (gcc, libc6-dev).
+It is recomended to install the manual (manpages-dev) and the documentation of the library (glibc-doc).
+Also the make utility (make)${STD}")
+    createC=([1]="echo '#include <stdio.h>
 
 int main()
 {
     printf(\"My first C script in Linux\");
     return 0;
-}' > myCscript.c"
-    compileGCC="gcc myCscript.c"
-    runCompiled="./a.out"
-    exeAsArg="gcc myCscript.c -o my_exec"
-    runExec="./my_exec"
-    oCanBeAnyWhere="gcc -o my_other_exec myCscript.c"
-    runOther="./my_other_exec"
+}' > myCscript.c" [2]="${GREEN}This will create a file named myCscript, with the c extension, along with the contents provided.
+It will be used further in chapter 11.${STD}")
+    compileGCC=([1]="gcc myCscript.c" [2]="${GREEN}This will compile our .c file and creat an executable a.out file.${STD}")
+    runCompiled=([1]="./a.out" [2]="${GREEN}Run previously obtained executable file.${STD}")
+    exeAsArg=([1]="gcc myCscript.c -o my_exec" [2]="${GREEN}You can even specify the name of the executable which you desire by using -o followed by the name of the executable.${STD}")
+    runExec=([1]="./my_exec" [2]="${GREEN}Run previously obtained executable file.${STD}")
+    oCanBeAnyWhere=([1]="gcc -o my_other_exec myCscript.c" [2]="${GREEN}You can place the -o option anywhere in the command as long as it is followed by the name of the executable file.${STD}")
+    runOther=([1]="./my_other_exec" [2]="${GREEN}Run previously obtained executable file.${STD}")
 
-    echo ""
-    echo -e "COMMAND: ${BLUE}$aptGet
-${GREEN}This will install necessary packages for developing C apps under Ubuntu (gcc, libc6-dev).
-It is recomended to install the manual (manpages-dev) and the documentation of the library (glibc-doc).
-Also the make utility (make)${STD}"
-    if run_command == 1; then 
-    echo -e "${BLUE}$aptGet${STD}"
-    eval "$aptGet"
-    echo -e "${GREEN}Done!${STD}"
-    else clear_screen;fi
+    run_command  "${aptGet[1]}" "${aptGet[2]}"
+    run_command  "${createC[1]}" "${createC[2]}"
+    run_command  "${compileGCC[1]}" "${compileGCC[2]}"
+    run_command  "${runCompiled[1]}" "${runCompiled[2]}"
+    run_command  "${exeAsArg[1]}" "${exeAsArg[2]}"
+    run_command  "${runExec[1]}" "${runExec[2]}"
+    run_command  "${oCanBeAnyWhere[1]}" "${oCanBeAnyWhere[2]}"
+    run_command  "${runOther[1]}" "${runOther[2]}"
 
-    echo ""
-    echo -e "COMMAND: ${BLUE}$createC
-${GREEN}This will create a file named myCscript, with the c extension, along with the contents provided.
-It will be used further in chapter 11.${STD}"
-    if run_command == 1; then 
-    echo -e "${BLUE}$createC${STD}"
-    eval "$createC"
-    echo -e "${GREEN}Done!${STD}"
-    else clear_screen;fi
-
-    echo ""
-    echo -e "COMMAND: ${BLUE}$compileGCC
-${GREEN}This will compile our .c file and creat an executable a.out file.${STD}"
-    if run_command == 1; then 
-    echo -e "${BLUE}$compileGCC${STD}"
-    eval "$compileGCC"
-    echo -e "${GREEN}Done!${STD}"
-    else clear_screen;fi
-
-    echo ""
-    echo -e "COMMAND: ${BLUE}$runCompiled
-${GREEN}Run previously obtained executable file.${STD}"
-    if run_command == 1; then 
-    echo -e "${BLUE}$runCompiled${STD}"
-    eval "$runCompiled"
-    echo ""
-    echo -e "${GREEN}Done!${STD}"
-    else clear_screen;fi
-
-    echo ""
-    echo -e "COMMAND: ${BLUE}$exeAsArg
-${GREEN}You can even specify the name of the executable which you desire by using -o followed by the name of the executable.${STD}"
-    if run_command == 1; then 
-    echo -e "${BLUE}$exeAsArg${STD}"
-    eval "$exeAsArg"
-    echo -e "${GREEN}Done!${STD}"
-    else clear_screen;fi
-
-    echo ""
-    echo -e "COMMAND: ${BLUE}$runExec
-${GREEN}Run previously obtained executable file.${STD}"
-    if run_command == 1; then 
-    echo -e "${BLUE}$runExec${STD}"
-    eval "$runExec"
-    echo ""
-    echo -e "${GREEN}Done!${STD}"
-    else clear_screen;fi
-
-    echo ""
-    echo -e "COMMAND: ${BLUE}$oCanBeAnyWhere
-${GREEN}You can place the -o option anywhere in the command as long as it is followed by the name of the executable file.${STD}"
-    if run_command == 1; then 
-    echo -e "${BLUE}$oCanBeAnyWhere${STD}"
-    eval "$oCanBeAnyWhere"
-    echo -e "${GREEN}Done!${STD}"
-    else clear_screen;fi
-
-    echo ""
-    echo -e "COMMAND: ${BLUE}$runOther
-${GREEN}Run previously obtained executable file.${STD}"
-    if run_command == 1; then 
-    echo -e "${BLUE}$runOther${STD}"
-    eval "$runOther"
-    echo ""
-    echo -e "${GREEN}Done!${STD}"
-    else clear_screen;fi
 }
 
 
@@ -691,7 +642,7 @@ cleanup(){
     sudo rm -f a.out
     sudo rm -f my_exec
     sudo rm -f my_other_exec
-    
+
     clear_screen
     echo -e "${GREEN}Done!${STD}"
 }
