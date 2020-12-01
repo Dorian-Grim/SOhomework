@@ -594,10 +594,9 @@ It is recomended to install the manual (manpages-dev) and the documentation of t
 Also the make utility (make)${STD}")
     createC=([1]="echo '#include <stdio.h>
 
-int main()
+main()
 {
     printf(\"My first C script in Linux\");
-    return 0;
 }' > myCscript.c" [2]="${GREEN}This will create a file named myCscript, with the c extension, along with the contents provided.
 It will be used further in chapter 11.${STD}")
     compileGCC=([1]="gcc myCscript.c" [2]="${GREEN}This will compile our .c file and creat an executable a.out file.${STD}")
@@ -606,6 +605,8 @@ It will be used further in chapter 11.${STD}")
     runExec=([1]="./my_exec" [2]="${GREEN}Run previously obtained executable file.${STD}")
     oCanBeAnyWhere=([1]="gcc -o my_other_exec myCscript.c" [2]="${GREEN}You can place the -o option anywhere in the command as long as it is followed by the name of the executable file.${STD}")
     runOther=([1]="./my_other_exec" [2]="${GREEN}Run previously obtained executable file.${STD}")
+    demoWall=([1]="gcc -Wall myCscript.c -o my_exec" [2]="The program compiled was intentionally not respecting C standards (main is missing it's type, and the return is absent), by default the compiler won't display
+any warning or errors. This can be changed by using the -Wall (warnings all) which tells the compiler to display warning messages for non-standard use of code.")
 
     run_command  "${aptGet[1]}" "${aptGet[2]}"
     run_command  "${createC[1]}" "${createC[2]}"
@@ -615,6 +616,9 @@ It will be used further in chapter 11.${STD}")
     run_command  "${runExec[1]}" "${runExec[2]}"
     run_command  "${oCanBeAnyWhere[1]}" "${oCanBeAnyWhere[2]}"
     run_command  "${runOther[1]}" "${runOther[2]}"
+    run_command  "${demoWall[1]}" "${demoWall[2]}"
+    
+
 
 }
 
