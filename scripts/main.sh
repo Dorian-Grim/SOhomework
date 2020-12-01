@@ -573,16 +573,33 @@ chapter_five_background() {
 }
 
 chapter_eleven_compiling(){
+    aptGet="apg-get install gcc libc6-dev manpages-dev glibc-doc make"
+    createC="echo '#include <stdio.h>
+    
+main()
+{
+    printf(\"My first c script in Linux\");
+}' > myCscript.c"
     echo ""
-    echo -e "COMMAND: ${BLUE}apg-get install gcc libc6-dev manpages-dev glibc-doc make
+    echo -e "COMMAND: ${BLUE}$aptGet
 ${GREEN}This will install necessary packages for developing C apps under Ubuntu (gcc, libc6-dev).
 It is recomended to install the manual (manpages-dev) and the documentation of the library (glibc-doc).
 Also the make utility (make)${STD}"
     if run_command == 1; then 
-    echo -e "${BLUE}apg-get install gcc libc6-dev manpages-dev glibc-doc make${STD}"
-    apt-get install gcc libc6-dev manpages-dev glibc-doc make
+    echo -e "${BLUE}$aptGet${STD}"
+    eval "$aptGet"
+    echo -e "${GREEN}Done!${STD}"
     else clear_screen;fi
 
+    echo ""
+    echo -e "COMMAND: ${BLUE}$createC
+${GREEN}This will create a file named myCscript, with the c extension. 
+It will be used further in chapter 11.${STD}"
+    if run_command == 1; then 
+    echo -e "${BLUE}$createC${STD}"
+    eval $createC
+    echo -e "${GREEN}Done!${STD}"
+    else clear_screen;fi
 }
 
 
