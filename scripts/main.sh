@@ -622,6 +622,7 @@ cleanup(){
     sudo rm -f image.img
     sudo rmdir /mnt/loop9
 
+    sudo rm -f myCscript.c
     clear_screen
     echo -e "${GREEN}Done!${STD}"
 }
