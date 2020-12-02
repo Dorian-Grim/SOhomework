@@ -656,6 +656,24 @@ To note, if you choose to execute these commands, the following taks will be per
     
 PS: don't worry, they're perfectly safe")
 
+
+    cmd11=([1]="gcc -v -Wall myCscript.c -o ptr" [2]="Verbose type option of the gcc command that shows detailed information of the compiling process.")
+    cmd12=([1]="gcc -E myCscript.c -o info.i" [2]="-E makes gcc stop after the the preprocess phase")
+    cmd13=([1]="gcc -S myCscript.c" [2]="-S makes gcc stop after the compiling phase")
+    cmd14=([1]="gcc -c myCscript.c" [2]="-c makes gcc stop after the assembly phase")
+    cmd15=([1]="objdump -d myCscript.o" [2]="Dissasembly operation. Meaning the recovery of mnemonics in assembly language starting with the machine code. Its the inverse operation of the assembly.")
+    cmd16=([1]="nm myCscript.o" [2]="Another utilitary used for the same dissasembly purposes is nm.")
+    cmd17=([1]="time gcc -o bb-ssa-0 myCscript.c -O0
+
+time gcc -o bb-ssa-1 myCscript.c -O1
+
+time gcc -o bb-ssa-2 myCscript.c -O2
+
+time gcc -o bb-ssa-3 myCscript.c -O3
+
+time gcc -o bb-ssa-s myCscript.c -Os" [2]="Optimising code obtained through -O option. It offers five levels of compiling efficiency or speed. 0 to 3 and s (representing low compiling time, but greatly reduces size).")
+    cmd18=([1]="readelf -S my_exec" [2]="Readelf utilitary used for the analysis of an executable file.")
+
     run_command  "${aptGet[1]}" "${aptGet[2]}"
     run_command  "${createC[1]}" "${createC[2]}"
     run_command  "${compileGCC[1]}" "${compileGCC[2]}"
@@ -666,8 +684,20 @@ PS: don't worry, they're perfectly safe")
     run_command  "${runOther[1]}" "${runOther[2]}"
     run_command  "${demoWall[1]}" "${demoWall[2]}"
     run_command  "${multipleSources[1]}" "${multipleSources[2]}"
+    run_command  "${cmd11[1]}" "${cmd11[2]}"
+    run_command  "${cmd12[1]}" "${cmd12[2]}"
+    run_command  "${cmd13[1]}" "${cmd13[2]}"
+    run_command  "${cmd14[1]}" "${cmd14[2]}"
+    run_command  "${cmd15[1]}" "${cmd15[2]}"
+    run_command  "${cmd16[1]}" "${cmd16[2]}"
+    
+    #optimisations
+    run_command  "${cmd17[1]}" "${cmd17[2]}"
+    #----
 
+    run_command  "${cmd18[1]}" "${cmd18[2]}"
 
+    #make
 }
 
 
