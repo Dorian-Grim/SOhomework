@@ -40,571 +40,235 @@ ${GREEN}${desc}${STD}"
 }
 
 chapter_three_manage() {
-    echo ""
-    echo -e "${GREEN}List passwd contents...${STD}"
-    echo "cat /etc/passwd"
-    pause
-    cat /etc/passwd
 
-    echo ""
-    echo -e "${GREEN}List shadow contents...(requires elevation)${STD}"
-    echo "sudo cat /etc/shadow"
-    pause
-    sudo cat /etc/shadow
-
-    echo ""
-    echo -e "${GREEN}Get infor about current user...${STD}"
-    echo "id $USER"
-    pause
-    id $USER
-
-    newuser=george
+    ch1=([1]="cat /etc/passwd" [2]="List passwd contents...")
+    ch2=([1]="sudo cat /etc/shadow" [2]="List shadow contents...(requires elevation)")
+    ch3=([1]="id $USER" [2]="Get infor about current user...")
+    ch4=([1]="sudo adduser george" [2]="Add a new user called 'george'")
+    ch5=([1]="sudo deluser george" [2]="Delete the previously created user 'george'")
+    ch6=([1]="sudo addgroup students" [2]="Create a new user group called 'students'")
+    ch7=([1]="sudo delgroup students" [2]="Delete the previously created group 'students'")
+    ch8=([1]="groupadd testg
     
-    echo ""
-    echo -e "${GREEN}Add a new user called 'george' ${STD}"
-    echo "sudo adduser $newuser"
-    pause
-    sudo adduser $newuser
+sudo useradd --home /home/testh -m -g testg --comment \"Test\" testu" [2]="Create a new user 'testu' having the new group 'testg' and\nthe home '/home/testh'")
+    ch9=([1]="testu:testp1234 | chpasswd" [2]="Set the password for the new user 'testu'")
 
-    echo ""
-    echo -e "${GREEN}Delete the previously created user '${newuser}' ${STD}"
-    echo "sudo deluser ${newuser}"
-    pause
-    sudo deluser $newuser
-
-    newgroup=students
-    echo ""
-    echo -e "${GREEN}Create a new user group called '${newgroup}' ${STD}"
-    echo "sudo addgroup ${newgroup}"
-    pause
-    sudo addgroup $newgroup
-
-    echo ""
-    echo -e "${GREEN}Delete the previously created group '${newgroup}' ${STD}"
-    echo "sudo delgroup ${newgroup}"
-    pause
-    sudo delgroup $newgroup
-
-    testuser="testu"
-    testgroup="testg"
-    testgid=9001
-    testhome=/home/testh
-    testpass="testp1234"
-
-    echo ""
-    echo -e "${GREEN}Create a new user '${testuser}' having the new group '${testgroup}' and\nthe home '${testhome}' ${STD}"
-    echo "groupadd ${testgroup}"
-    echo "sudo useradd --home $testhome -m -g $testgroup --comment "Test" $testuser"
-    pause
-    sudo groupadd -g $testgid $testgroup
-    sudo useradd --home $testhome -m -g $testgroup --comment "Test" $testuser
-
-    echo ""
-    echo -e "${GREEN}Set the password for the new user '${testuser}' ${STD}"
-    echo "echo "$testuser:$testpass" | chpasswd"
-    pause
-    echo "${testuser}:${testpass}" | chpasswd
-
+    run_command  "${ch1[1]}" "${ch1[2]}"
+    run_command  "${ch3[1]}" "${ch2[2]}"
+    run_command  "${ch3[1]}" "${ch3[2]}"
+    run_command  "${ch4[1]}" "${ch4[2]}"
+    run_command  "${ch5[1]}" "${ch5[2]}"
+    run_command  "${ch6[1]}" "${ch6[2]}"
+    run_command  "${ch7[1]}" "${ch7[2]}"
+    run_command  "${ch8[1]}" "${ch8[2]}"
+    run_command  "${ch9[1]}" "${ch9[2]}"
 }
 
 chapter_three_packages() {
+    ch1=([1]="sudo dpkg -L coreutils | tail" [2]="List the content of the package coreutils ")
+    ch2=([1]="sudo dpkg -S /bin/ps" [2]="Find the package that contains the file /bin/ps ")
+    ch3=([1]="sudo apt install gddrescue" [2]="Install the package gddrescue ")
+    ch4=([1]="sudo apt remove gddrescue" [2]="Remove the package gddrescue ")
+    ch5=([1]="sudo apt clean" [2]="Clean the local cache... ")
+    ch6=([1]="sudo apt update" [2]="Update the package list... ")
+    ch7=([1]="sudo apt upgrade" [2]="Download and install the available updates... ")
+    ch8=([1]="sudo apt autoremove" [2]="Remove unneeded packages... ")
 
-    package="coreutils"
-    echo ""
-    echo -e "${GREEN}List the content of the package ${package} ${STD}"
-    echo "dpkg -L ${package}"
-    pause
-    sudo dpkg -L $package | tail
-
-    file="/bin/ps"
-    echo ""
-    echo -e "${GREEN}Find the package that contains the file ${file} ${STD}"
-    echo "dpkg -S ${file}"
-    pause
-    sudo dpkg -S $file
-
-    new_package="gddrescue"
-    echo ""
-    echo -e "${GREEN}Install the package ${new_package} ${STD}"
-    echo "sudo apt install ${new_package}"
-    pause
-    sudo apt install $new_package
-
-    echo ""
-    echo -e "${GREEN}Remove the package ${new_package} ${STD}"
-    echo "sudo apt remove ${new_package}"
-    pause
-    sudo apt remove $new_package
-
-    echo ""
-    echo -e "${GREEN}Clean the local cache... ${STD}"
-    echo "sudo apt clean"
-    pause
-    sudo apt clean
-
-    echo ""
-    echo -e "${GREEN}Update the package list... ${STD}"
-    echo "sudo apt update"
-    pause
-    sudo apt update
-
-    echo ""
-    echo -e "${GREEN}Download and install the available updates... ${STD}"
-    echo "sudo apt upgrade"
-    pause
-    sudo apt upgrade
-
-    echo ""
-    echo -e "${GREEN}Remove unneeded packages... ${STD}"
-    echo "sudo apt autoremove"
-    pause
-    sudo apt autoremove
-
+    run_command  "${ch1[1]}" "${ch1[2]}"
+    run_command  "${ch3[1]}" "${ch2[2]}"
+    run_command  "${ch3[1]}" "${ch3[2]}"
+    run_command  "${ch4[1]}" "${ch4[2]}"
+    run_command  "${ch5[1]}" "${ch5[2]}"
+    run_command  "${ch6[1]}" "${ch6[2]}"
+    run_command  "${ch7[1]}" "${ch7[2]}"
+    run_command  "${ch8[1]}" "${ch8[2]}"
 }
 
 chapter_four_files() {
+    ch1=([1]="pwd" [2]="Print the working directory...")
+    ch2=([1]="touch file1.txt" [2]="Create a file...")
+    ch3=([1]="ls -al" [2]="List files...")
+    ch4=([1]="cp file1.txt file2.txt" [2]="Copy file...")
+    ch5=([1]="rm file1.txt" [2]="Delete file...")
+    ch6=([1]="mv file2.txt newfile.txt" [2]="Rename file...")
+    ch7=([1]="mkdir dir1 dir2 dir3" [2]="Create directory...")
+    ch8=([1]="rmdir dir2" [2]="Delete empty dir...")
+    ch9=([1]="touch dir3/test1.txt dir3/test2.txt
 
-    echo ""
-    echo -e "${GREEN}Print the working directory...${STD}"
-    echo "pwd"
-    pause
-    pwd
+ls -a ~/ > dir3/test3.txt" [2]="Create files using relative path...")
+    ch10=([1]="ls -lR" [2]="List dir contents recursive...")
+    ch11=([1]="rm -rf dir3" [2]="Delete dir recursive...")
+    ch12=([1]="sudo tar cvf new_archive.tar /etc" [2]="Archive files with 'tar'")
+    ch13=([1]="sudo tar czvf new_gzip_archive.tar.gz /etc" [2]="Archive files with 'tar' and compressed with 'gzip'")
 
-    echo ""
-    echo -e "${GREEN}Create a file...${STD}"
-    echo "touch file1.txt"
-    pause
-    touch file1.txt
-
-    echo ""
-    echo -e "${GREEN}List files...${STD}"
-    echo "ls -al"
-    pause
-    ls -al
-
-    echo ""
-    echo -e "${GREEN}Copy file...${STD}"
-    echo "cp file1.txt file2.txt"
-    pause
-    cp file1.txt file2.txt
-
-    echo ""
-    echo -e "${GREEN}Delete file...${STD}"
-    echo "rm file1.txt"
-    pause
-    rm file1.txt
-
-    echo ""
-    echo -e "${GREEN}Rename file...${STD}"
-    echo "mv file2.txt newfile.txt"
-    pause
-    mv file2.txt newfile.txt
-
-    echo ""
-    echo -e "${GREEN}Create directory...${STD}"
-    echo "mkdir dir1 dir2 dir3"
-    pause
-    mkdir dir1 dir2 dir3
-    
-    echo ""
-    echo -e "${GREEN}Delete empty dir...${STD}"
-    echo "rmdir dir2"
-    pause
-    rmdir dir2
-
-    echo ""
-    echo -e "${GREEN}Create files using relative path...${STD}"
-    pause
-    echo "touch dir3/test1.txt dir3/test2.txt"
-    touch dir3/test1.txt dir3/test2.txt
-    echo "ls -a ~/ > dir3/test3.txt"
-    ls -a ~/ > dir3/test3.txt
-
-    echo ""
-    echo -e "${GREEN}List dir contents recursive...${STD}"
-    echo "ls -R"
-    pause
-    ls -lR
-
-    echo ""
-    echo -e "${GREEN}Delete dir recursive...${STD}"
-    echo "rm -rf dir3"
-    pause
-    rm -rf dir3
-
-    temp_path="/etc"
-    file_name="new_archive.tar"
-    echo ""
-    echo -e "${GREEN}Archive files with 'tar'${STD}"
-    echo "sudo tar cvf ${file_name} ${temp_path}"
-    pause
-    sudo tar cvf $file_name $temp_path
-
-    temp_path="/etc"
-    file_name2="new_gzip_archive.tar.gz"
-    echo ""
-    echo -e "${GREEN}Archive files with 'tar' and compressed with 'gzip'${STD}"
-    echo "sudo tar cvf ${file_name2} ${temp_path}"
-    pause
-    sudo tar czvf $file_name2 $temp_path
-
-    temp_path=$HOME
+    run_command  "${ch1[1]}" "${ch1[2]}"
+    run_command  "${ch3[1]}" "${ch2[2]}"
+    run_command  "${ch3[1]}" "${ch3[2]}"
+    run_command  "${ch4[1]}" "${ch4[2]}"
+    run_command  "${ch5[1]}" "${ch5[2]}"
+    run_command  "${ch6[1]}" "${ch6[2]}"
+    run_command  "${ch7[1]}" "${ch7[2]}"
+    run_command  "${ch8[1]}" "${ch8[2]}"
+    run_command  "${ch9[1]}" "${ch9[2]}"
+    run_command  "${ch10[1]}" "${ch10[2]}"
+    run_command  "${ch11[1]}" "${ch11[2]}"
+    run_command  "${ch12[1]}" "${ch12[2]}"
+    run_command  "${ch13[1]}" "${ch13[2]}"
     
 }
 chapter_four_redirection(){
     list_file="listare.txt"
-    echo ""
-    echo -e "${GREEN}Output 'ls' result to file...${STD}"
-    echo "ls > ${list_file}"
-    pause
-    ls > $list_file
-
-    echo ""
-    echo -e "${GREEN}Display ${list_file} using 'cat' command${STD}"
-    echo "cat ${list_file}"
-    pause
-    cat $list_file
-
-    echo ""
-    echo -e "${GREEN}Add 'data' command output at the end of ${list_file}${STD}"
-    echo "date >> ${list_file}"
-    pause
-    date >> $list_file
-
-    echo ""
-    echo -e "${GREEN}Display ${list_file} using 'cat' command${STD}"
-    echo "cat ${list_file}t"
-    pause
-    cat $list_file
-
     error_file="erori.txt"
-    echo ""
-    echo -e "${GREEN}Store error of 'cp' command to ${error_file}${STD}"
-    echo "cp $list_file 2> $error_file"
-    pause
-    cp $list_file 2> $error_file
+    ch1=([1]="ls > $list_file" [2]="Output 'ls' result to file...")
+    ch2=([1]="cat $list_file" [2]="Display ${list_file} using 'cat' command")
+    ch3=([1]="date >> $list_file" [2]="Add 'data' command output at the end of ${list_file}")
+    ch4=([1]="cat $list_file" [2]="Display ${list_file} using 'cat' command")
+    ch5=([1]="cp $list_file 2> $error_file" [2]="Store error of 'cp' command to ${error_file}")
+    ch6=([1]="ls fisier1.txt fisier4.txt 2>&1 > $list_file" [2]="Store the result and errors of 'ls' command to ${list_file}")
+    ch7=([1]="cat $list_file" [2]="Display contents of ${list_file} using 'cat' command")
 
-    echo ""
-    echo -e "${GREEN}Store the result and errors of 'ls' command to ${list_file}${STD}"
-    echo "ls fisier1.txt fisier4.txt 2>&1 > ${list_file}"
-    pause
-    ls fisier1.txt fisier4.txt 2>&1 > $list_file
-
-    echo ""
-    echo -e "${GREEN}Display contents of ${list_file} using 'cat' command${STD}"
-    echo "cat ${list_file}t"
-    pause
-    cat $list_file
+    run_command  "${ch1[1]}" "${ch1[2]}"
+    run_command  "${ch3[1]}" "${ch2[2]}"
+    run_command  "${ch3[1]}" "${ch3[2]}"
+    run_command  "${ch4[1]}" "${ch4[2]}"
+    run_command  "${ch5[1]}" "${ch5[2]}"
+    run_command  "${ch6[1]}" "${ch6[2]}"
+    run_command  "${ch7[1]}" "${ch7[2]}"
 
 }
 
 chapter_four_rights() {
+    ch1=([1]="touch fisier.txt" [2]="Create a new file called fisier.txt to inspect rights")
+    ch2=([1]="ls -l fisier.txt" [2]="List files with details")
+    ch3=([1]="chmod 777 fisier.txt" [2]="Set access rights to 777")
+    ch4=([1]="ls -l fisier.txt" [2]="List files with details")
+    ch5=([1]="chmod u=rwx,g=r,o=- fisier.txt" [2]="Set access rights using literal form")
+    ch6=([1]="ls -l fisier.txt" [2]="List files with details")
 
-    
-    file=fisier.txt
-    echo ""
-    echo -e "${GREEN}Create a new file called ${file} to inspect rights${STD}"
-    echo "touch ${file}"
-    pause
-    touch $file
-
-    echo ""
-    echo -e "${GREEN}List files with details${STD}"
-    echo "ls -l"
-    pause
-    ls -l $file
-
-    echo ""
-    echo -e "${GREEN}Set access rights to 777${STD}"
-    echo "chmod 777 ${file}"
-    pause
-    chmod 777 $file
-
-    echo ""
-    echo -e "${GREEN}List files with details${STD}"
-    echo "ls -l"
-    pause
-    ls -l $file
-    
-    echo ""
-    echo -e "${GREEN}Set access rights using literal form${STD}"
-    echo "chmod u=rwx,g=r,o- ${file}"
-    pause
-    chmod u=rwx,g=r,o=- $file
-
-    echo ""
-    echo -e "${GREEN}List files with details${STD}"
-    echo "ls -l"
-    pause
-    ls -l $file
+    run_command  "${ch1[1]}" "${ch1[2]}"
+    run_command  "${ch3[1]}" "${ch2[2]}"
+    run_command  "${ch3[1]}" "${ch3[2]}"
+    run_command  "${ch4[1]}" "${ch4[2]}"
+    run_command  "${ch5[1]}" "${ch5[2]}"
+    run_command  "${ch6[1]}" "${ch6[2]}"
 
 }
 
 chapter_four_find() {
-    pattern=".bashrc"
-    find_path="/home"
-    echo ""
-    echo -e "${GREEN}Find files matching '${pattern}' in the ${find_path} ${STD}"
-    echo "find ${find_path} -name ${pattern}"
-    pause
-    sudo find $find_path -name $pattern
+    ch1=([1]="sudo find /home -name .bashrc" [2]="Find files matching '.bashrc' in the /home ")
+    ch2=([1]="sudo find/usr -size +500k" [2]="Find files larger '+500k' in the /usr ")
+    ch3=([1]="locate pwd" [2]="Find files containing 'pwd' using the 'locate' command ")
+    ch4=([1]="whereis ls" [2]="Find 'ls' using the 'whereis' command ")
+    ch5=([1]="which bash" [2]="Find the path of 'bash' using the 'which' command ")
+    ch6=([1]="type cd; type cat" [2]="Determien if 'cd/cat' is a builtin/external/allias command ")
+    ch7=([1]="file /bin/id" [2]="Find the file type of '/bin/id' using the 'file' command ")
 
-    find_path="/usr"
-    size=+500k
-    echo ""
-    echo -e "${GREEN}Find files larger '${size}' in the ${find_path} ${STD}"
-    echo "find ${find_path} -size ${size}"
-    pause
-    sudo find $find_path -size $size
-
-    pattern="pwd"
-    echo ""
-    echo -e "${GREEN}Find files containing '${pattern}' using the 'locate' command ${STD}"
-    echo "locate ${pwd}"
-    pause
-    locate $pattern
-
-    pattern="ls"
-    echo ""
-    echo -e "${GREEN}Find '${pattern}' using the 'whereis' command ${STD}"
-    echo "whereis ${pattern}"
-    pause
-    whereis $pattern
-
-    pattern="bash"
-    echo ""
-    echo -e "${GREEN}Find the path of '${pattern}' using the 'which' command ${STD}"
-    echo "which ${pattern}"
-    pause
-    which $pattern
-
-    pattern="cd"
-    pattern2="cat"
-    echo ""
-    echo -e "${GREEN}Determien if '${pattern}/${pattern2}' is a builtin/external/allias command ${STD}"
-    echo "type ${pattern}; type ${pattern2}"
-    pause
-    type $pattern; type $pattern2
-
-    pattern="/bin/id"
-    echo ""
-    echo -e "${GREEN}Find the file type of '${pattern}' using the 'file' command ${STD}"
-    echo "file ${pattern}"
-    pause
-    file $pattern
+    run_command  "${ch1[1]}" "${ch1[2]}"
+    run_command  "${ch3[1]}" "${ch2[2]}"
+    run_command  "${ch3[1]}" "${ch3[2]}"
+    run_command  "${ch4[1]}" "${ch4[2]}"
+    run_command  "${ch5[1]}" "${ch5[2]}"
+    run_command  "${ch6[1]}" "${ch6[2]}"
+    run_command  "${ch7[1]}" "${ch7[2]}"
+    
 }
 
 chapter_four_disc_state() {
-    echo ""
-    echo -e "${GREEN}Display mounted file systems${STD}"
-    echo "mount | more"
-    pause
-    mount
-
-    echo ""
-    echo -e "${GREEN}Display mounted file systems at system startup${STD}"
-    echo "sudo cat /etc/mtab"
-    pause
-    sudo cat /etc/mtab | more
-
-    echo ""
-    image="image.img"
-    echo -e "${GREEN}Create and empty disk image ${STD}"
-    echo "dd if=/dev/zero of=${image} iflag=fullblock bs=1M count=500"
-    pause
-    sudo dd if=/dev/zero of=$image iflag=fullblock bs=1M count=500 && sync
-
-    echo ""
     loopdev="loop9"
-    echo -e "${GREEN}Create a loop device with the newly created disk image as /dev/${loopdev} ${STD}"
-    echo "sudo losetup ${loopdev} ${image}"
-    pause
-    sudo sudo losetup $loopdev $image
+    image="image.img"
+    ch1=([1]="mount | more" [2]="Display mounted file systems")
+    ch2=([1]="sudo cat /etc/mtab | more" [2]="Display mounted file systems at system startup")
+    ch3=([1]="sudo dd if=/dev/zero of=$image iflag=fullblock bs=1M count=500 && sync" [2]="Create and empty disk image ")
+    ch4=([1]="sudo sudo losetup $loopdev $image" [2]="Create a loop device with the newly created disk image as /dev/${loopdev} ")
+    ch5=([1]="sudo parted --script /dev/${loopdev} \
+mklabel gpt \
+mkpart primary ext4 1MiB 500MB" [2]="Create a new GPT partition table on /dev/${loopdev} using 'parted' command and a EXT4 partition using the whole disk space")
+    ch6=([1]="sudo mkfs -t ext4 /dev/${loopdev}p1" [2]="Format the newly created partition /dev/${loopdev}p1 using the 'mkfs' command ")
+    ch7=([1]="sudo mkdir -p /mnt/loop9
+sudo mount /dev/${loopdev}p1 /mnt/loop9" [2]="We will mount /dev/${loopdev}p1 to /mnt/loop9 ")
+    ch8=([1]="mount | grep ${loopdev}" [2]="Display mounted file system")
+    ch9=([1]="df -h | grep ^/dev" [2]="Display disk utilisation")
+    ch10=([1]="sudo umount /dev/${loopdev}p1
+sudo fsck -t ext4 /dev/${loopdev}p1" [2]="To check the filesystem for errors we need to firstly unmount it then run the 'fsck' command against it ")
+    ch11=([1]="sudo umount /dev/loop9
+sudo losetup -d /dev/${loopdev}
+sudo -f rm $image
+sudo rmdir /mnt/loop9" [2]="Cleaning up...")
 
-    echo ""
-    echo -e "${GREEN}Create a new GPT partition table on /dev/${loopdev} using 'parted' command ${STD}"
-    echo -e "and a EXT4 partition using the whole disk space${STD}"
-    echo "sudo parted --script /dev/${loopdev} \
-          mklabel gpt \
-          mkpart primary ext4 1MiB 500MB"
-    pause
-    sudo parted --script /dev/${loopdev} \
-         mklabel gpt \
-         mkpart primary ext4 1MiB 500MB
-
-    
-    echo ""
-    echo -e "${GREEN}Format the newly created partition /dev/${loopdev}p1 using ${STD}"
-    echo -e "${GREEN}the 'mkfs' command ${STD}"
-    echo "sudo mkfs -t ext4 /dev/${loopdev}p1"
-    pause
-    sudo mkfs -t ext4 /dev/${loopdev}p1
-
-    echo ""
-    echo -e "${GREEN}We will mount /dev/${loopdev}p1 to /mnt/loop9 ${STD}"
-    echo "sudo mount /dev/${loopdev}p1 /mnt/loop9"
-    pause
-    sudo mkdir -p /mnt/loop9
-    sudo mount /dev/${loopdev}p1 /mnt/loop9
-
-    echo ""
-    echo -e "${GREEN}Display mounted file system${STD}"
-    echo "mount | grep ${loopdev}"
-    pause
-    mount
-
-    echo ""
-    echo -e "${GREEN}Display disk utilisation${STD}"
-    echo "df -h | grep ^/dev"
-    pause
-
-    echo ""
-    echo -e "${GREEN}To check the filesystem for errors we need to firstly unmount it"
-    echo -e "then run the 'fsck' command against it ${STD}"
-    echo "umount /dev/${loopdev}p1 or umount /mnt/loop9"
-    echo "sudo fsck -t ext4 /dev/${loopdev}p1"
-    pause
-    sudo umount /dev/${loopdev}p1
-    sudo fsck -t ext4 /dev/${loopdev}p1
-
-    echo ""
-    echo -e "${GREEN}Cleaning up...${STD}"
-    echo "sudo umount /dev/loop9"
-    echo "sudo losetup -d /dev/${loopdev}"
-    echo "sudo rm  -f image.img"
-    echo "sudo rmdir /mnt/loop9"
-    pause
-    sudo umount /dev/loop9
-    sudo losetup -d /dev/${loopdev}
-    sudo -f rm $image
-    sudo rmdir /mnt/loop9
-
-
+    run_command  "${ch1[1]}" "${ch1[2]}"
+    run_command  "${ch3[1]}" "${ch2[2]}"
+    run_command  "${ch3[1]}" "${ch3[2]}"
+    run_command  "${ch4[1]}" "${ch4[2]}"
+    run_command  "${ch5[1]}" "${ch5[2]}"
+    run_command  "${ch6[1]}" "${ch6[2]}"
+    run_command  "${ch7[1]}" "${ch7[2]}"
+    run_command  "${ch8[1]}" "${ch8[2]}"
+    run_command  "${ch9[1]}" "${ch9[2]}"
+    run_command  "${ch10[1]}" "${ch10[2]}"
+    run_command  "${ch11[1]}" "${ch11[2]}"
 }
 
 chapter_five_processes() {
-    
-    echo ""
-    echo -e "${GREEN}Display processes using the 'ps' command${STD}"
-    echo "ps"
-    pause
-    ps
+    ch1=([1]="ps" [2]="Display processes using the 'ps' command")
+    ch2=([1]="ps -A" [2]="Display ALL processes using the 'ps'")
+    ch3=([1]="ps -u root" [2]="Display processes using the 'ps' command just for the 'root' user ")
+    ch4=([1]="ps -F" [2]="Display processes using the 'ps' command with details and formated output")
+    ch5=([1]="pstree" [2]="Display process hierarhy using the 'pstree' command ")
+    ch6=([1]="toptop -bn 1 2>&1" [2]="Display processes in realtime using the 'top' command ")
+    ch7=([1]="ls /proc" [2]="Display the contents of the '/proc' file system ")
+    ch8=([1]="head /proc/cpuinfo" [2]="Display cpu from '/proc' ")
+    ch9=([1]="head /proc/meminfo" [2]="Display memory from '/proc' ")
+    ch10=([1]="tail /proc/partitions" [2]="Display partitions from '/proc' ")
+    ch11=([1]="cat /proc/uptime" [2]="Display uptime from '/proc' ")
 
-    echo ""
-    echo -e "${GREEN}Display ALL processes using the 'ps'${STD}"
-    echo "ps -A"
-    pause
-    ps -A
+    run_command  "${ch1[1]}" "${ch1[2]}"
+    run_command  "${ch3[1]}" "${ch2[2]}"
+    run_command  "${ch3[1]}" "${ch3[2]}"
+    run_command  "${ch4[1]}" "${ch4[2]}"
+    run_command  "${ch5[1]}" "${ch5[2]}"
+    run_command  "${ch6[1]}" "${ch6[2]}"
+    run_command  "${ch7[1]}" "${ch7[2]}"
+    run_command  "${ch8[1]}" "${ch8[2]}"
+    run_command  "${ch9[1]}" "${ch9[2]}"
+    run_command  "${ch10[1]}" "${ch10[2]}"
+    run_command  "${ch11[1]}" "${ch11[2]}"
 
-    echo ""
-    echo -e "${GREEN}Display processes using the 'ps' command"
-    echo -e "just for the 'root' user ${STD}"
-    echo "ps -u root"
-    pause
-    ps -u root
-
-    echo ""
-    echo -e "${GREEN}Display processes using the 'ps' command"
-    echo -e "with details and formated output${STD}"
-    echo "ps -F"
-    pause
-    ps -F
-    
-    echo ""
-    echo -e "${GREEN}Display process hierarhy using the 'pstree' command ${STD}"
-    echo "pstree"
-    pause
-    pstree
-
-    echo ""
-    echo -e "${GREEN}Display processes in realtime using the 'top' command ${STD}"
-    echo "top -bn 1 2>&1"
-    pause
-    toptop -bn 1 2>&1
-
-    echo ""
-    echo -e "${GREEN}Display the contents of the '/proc' file system ${STD}"
-    echo "ls /proc"
-    pause
-    ls /proc
-
-    echo ""
-    echo -e "${GREEN}Display the contents of the '/proc' file system ${STD}"
-    echo "ls /proc"
-    pause
-    ls /proc
-
-    echo ""
-    echo -e "${GREEN}Display cpu, memory, partitions and uptime info from '/proc' ${STD}"
-    echo "head /proc/cpuinfo"
-    pause
-    head /proc/cpuinfo
-    echo ""
-    echo "head /proc/meminfo"
-    pause
-    head /proc/meminfo
-    echo ""
-    pause
-    echo "tail /proc/partitions"
-    pause
-    tail /proc/partitions
-    echo ""
-    echo "cat /proc/uptime"
 }
 
 chapter_five_background() {
-    echo ""
-    echo -e "${GREEN}Run some processes in the background${STD}"
-    echo "sudo updatedb &"
-    pause
-    sudo updatedb &
-    echo "top &"
-    pause
-    top &
+    ch1=([1]="sudo updatedb &" [2]="Run some processes in the background")
+    ch2=([1]="top &" [2]="Show the Linux processes")
+    ch3=([1]="jobs" [2]="Display current jobs")
+    ch4=([1]="sudo nohup updatedb &" [2]="Run a process as a daemon")
+    ch5=([1]="sudo ps ax" [2]="Display all processes")
+    ch6=([1]="kill -l" [2]="Display all 'kill' signals")
     
-    echo ""
-    echo -e "${GREEN}Display current jobs${STD}"
-    echo "jobs"
-    pause
-    jobs
-
-    echo ""
-    echo -e "${GREEN}Run a process as a daemon${STD}"
-    echo "sudo nohup updatedb &"
-    pause
-    sudo nohup updatedb &
-
-    echo ""
-    echo -e "${GREEN}Display all processes${STD}"
-    echo "sudo ps ax"
-    pause
-    sudo ps ax
-
-    echo ""
-    echo -e "${GREEN}Display all 'kill' signals${STD}"
-    echo "kill -l"
-    pause
-    kill -l
+    run_command  "${ch1[1]}" "${ch1[2]}"
+    run_command  "${ch3[1]}" "${ch2[2]}"
+    run_command  "${ch3[1]}" "${ch3[2]}"
+    run_command  "${ch4[1]}" "${ch4[2]}"
+    run_command  "${ch5[1]}" "${ch5[2]}"
+    run_command  "${ch6[1]}" "${ch6[2]}"
 
 }
 
 chapter_eleven_compiling(){
-    aptGet=([1]="apt-get install gcc libc6-dev manpages-dev glibc-doc make" [2]="${GREEN}This will install necessary packages for developing C apps under Ubuntu (gcc, libc6-dev).
+    aptGet=([1]="apt-get install gcc libc6-dev manpages-dev glibc-doc make" [2]="This will install necessary packages for developing C apps under Ubuntu (gcc, libc6-dev).
 It is recomended to install the manual (manpages-dev) and the documentation of the library (glibc-doc).
-Also the make utility (make)${STD}")
+Also the make utility (make)")
     createC=([1]="echo '#include <stdio.h>
 
 main()
 {
     printf(\"My first C script in Linux\");
-}' > myCscript.c" [2]="${GREEN}This will create a file named myCscript, with the c extension, along with the contents provided.
-It will be used further in chapter 11.${STD}")
-    compileGCC=([1]="gcc myCscript.c" [2]="${GREEN}This will compile our .c file and creat an executable a.out file.${STD}")
-    runCompiled=([1]="./a.out" [2]="${GREEN}Run previously obtained executable file.${STD}")
-    exeAsArg=([1]="gcc myCscript.c -o my_exec" [2]="${GREEN}You can even specify the name of the executable which you desire by using -o followed by the name of the executable.${STD}")
-    runExec=([1]="./my_exec" [2]="${GREEN}Run previously obtained executable file.${STD}")
-    oCanBeAnyWhere=([1]="gcc -o my_other_exec myCscript.c" [2]="${GREEN}You can place the -o option anywhere in the command as long as it is followed by the name of the executable file.${STD}")
-    runOther=([1]="./my_other_exec" [2]="${GREEN}Run previously obtained executable file.${STD}")
+}' > myCscript.c" [2]="This will create a file named myCscript, with the c extension, along with the contents provided.
+It will be used further in chapter 11.")
+    compileGCC=([1]="gcc myCscript.c" [2]="This will compile our .c file and creat an executable a.out file.")
+    runCompiled=([1]="./a.out" [2]="Run previously obtained executable file.")
+    exeAsArg=([1]="gcc myCscript.c -o my_exec" [2]="You can even specify the name of the executable which you desire by using -o followed by the name of the executable.")
+    runExec=([1]="./my_exec" [2]="Run previously obtained executable file.")
+    oCanBeAnyWhere=([1]="gcc -o my_other_exec myCscript.c" [2]="You can place the -o option anywhere in the command as long as it is followed by the name of the executable file.")
+    runOther=([1]="./my_other_exec" [2]="Run previously obtained executable file.")
     demoWall=([1]="gcc -Wall myCscript.c -o my_exec" [2]="The program compiled was intentionally not respecting C standards (main is missing it's type, and the return is absent), by default the compiler won't display
 any warning or errors. This can be changed by using the -Wall (warnings all) which tells the compiler to display warning messages for non-standard use of code.")
     multipleSources=([1]="echo '#include <stdio.h>
