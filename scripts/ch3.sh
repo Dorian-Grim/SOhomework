@@ -1,3 +1,5 @@
+#!/bin/bash
+
 chapter_three_manage() {
 
     ch1=([1]="cat /etc/passwd" [2]="List passwd contents...")

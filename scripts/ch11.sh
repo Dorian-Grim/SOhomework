@@ -1,3 +1,5 @@
+#!/bin/bash
+
 chapter_eleven_1(){
     aptGet=([1]="apt-get install gcc libc6-dev manpages-dev glibc-doc make" [2]="This will install necessary packages for developing C apps under Ubuntu (gcc, libc6-dev).
 It is recomended to install the manual (manpages-dev) and the documentation of the library (glibc-doc).

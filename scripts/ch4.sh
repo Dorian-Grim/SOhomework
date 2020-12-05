@@ -1,3 +1,5 @@
+#!/bin/bash
+
 chapter_four_files() {
     ch1=([1]="pwd" [2]="Print the working directory...")
     ch2=([1]="touch file1.txt" [2]="Create a file...")

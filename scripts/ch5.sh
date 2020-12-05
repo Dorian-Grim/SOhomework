@@ -1,3 +1,5 @@
+#!/bin/bash
+
 chapter_five_processes() {
     ch1=([1]="ps" [2]="Display processes using the 'ps' command")
     ch2=([1]="ps -A" [2]="Display ALL processes using the 'ps'")
