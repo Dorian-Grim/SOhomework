@@ -9,10 +9,8 @@ chapter_three_manage() {
     ch5=([1]="sudo deluser george" [2]="Delete the previously created user 'george'")
     ch6=([1]="sudo addgroup students" [2]="Create a new user group called 'students'")
     ch7=([1]="sudo delgroup students" [2]="Delete the previously created group 'students'")
-    ch8=([1]="groupadd testg
-    
-sudo useradd --home /home/testh -m -g testg --comment \"Test\" testu" [2]="Create a new user 'testu' having the new group 'testg' and\nthe home '/home/testh'")
-    ch9=([1]="testu:testp1234 | chpasswd" [2]="Set the password for the new user 'testu'")
+    ch8=([1]="groupadd testg; sudo useradd --home /home/testh -m -g testg --comment \"Test\" testu" [2]="Create a new user 'testu' having the new group 'testg' and\nthe home '/home/testh'")
+    ch9=([1]="echo testu:testp1234 | sudo chpasswd" [2]="Set the password for the new user 'testu'")
 
     run_command  "${ch1[1]}" "${ch1[2]}"
     run_command  "${ch3[1]}" "${ch2[2]}"
@@ -56,7 +54,7 @@ menu_ch3(){
 
 read_opt_ch3(){
     echo -n "Please enter your choice: "
-    read choice
+    read -r choice
     case $choice in 
         "a"|"A"|"1")
             clear_screen
@@ -73,7 +71,7 @@ read_opt_ch3(){
             main_menu
             ;;
         *)
-            echo -e "${RED}[${choice_sub}]${STD} is not a valid option"
+            echo -e "${RED}[${choice}]${STD} is not a valid option"
             pause
             ;;
     esac

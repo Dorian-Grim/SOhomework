@@ -15,7 +15,7 @@ menu_ch12(){
 
 read_opt_ch12(){
     echo -n "Please enter your choice: "
-    read choice
+    read -r choice
     case $choice in 
         "a"|"A"|"1")
             clear_screen
@@ -27,7 +27,7 @@ read_opt_ch12(){
             main_menu
             ;;
         *)
-            echo -e "${RED}[${choice_sub}]${STD} is not a valid option"
+            echo -e "${RED}[${choice}]${STD} is not a valid option"
             pause
             ;;
     esac

@@ -27,7 +27,7 @@ show_menus() {
 }
 read_options(){
 	echo -n "Please enter your choice: " 
-    read choice
+    read -r choice
 	case $choice in
 		"a"|"A"|"3") ch3 ;;
 		"b"|"B"|"4") ch4 ;;

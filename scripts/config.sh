@@ -48,7 +48,8 @@ cleanup(){
     sudo rm -f new_archive.tar
     sudo rm -f new_gzip_archive.tar.gz
     sudo rm -f fisier.txt
-
+    sudo rm -f nohup.out
+    
     sudo umount /dev/loop9
     sudo losetup -d /dev/loop9
     sudo rm -f image.img
