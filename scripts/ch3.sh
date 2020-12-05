@@ -42,3 +42,45 @@ chapter_three_packages() {
     run_command  "${ch7[1]}" "${ch7[2]}"
     run_command  "${ch8[1]}" "${ch8[2]}"
 }
+
+menu_ch3(){
+    clear_screen
+    echo "Chapter Three "
+    echo -e "(a) Users and group management"
+    echo -e "(b) Package management"
+    echo -e "(x) Return to main menu"
+    echo
+}
+
+read_opt_ch3(){
+    echo -n "Please enter your choice: "
+    read choice
+    case $choice in 
+        "a"|"A"|"1")
+            clear_screen
+            chapter_three_manage
+            pause
+            ;;
+        "b"|"B"|"2")
+            clear_screen
+            chapter_three_packages
+            pause
+            ;;
+        "x"|"X")
+            clear_screen
+            main_menu
+            ;;
+        *)
+            echo -e "${RED}[${choice_sub}]${STD} is not a valid option"
+            pause
+            ;;
+    esac
+}
+
+ch3(){
+    while true
+	do
+		menu_ch3
+		read_opt_ch3
+	done
+}

@@ -121,3 +121,68 @@ sudo rmdir /mnt/loop9" [2]="Cleaning up...")
     run_command  "${ch10[1]}" "${ch10[2]}"
     run_command  "${ch11[1]}" "${ch11[2]}"
 }
+
+menu_ch4(){
+    echo "Chapter Four - File Systems "
+    echo -e "(a) Working with files"
+    echo -e "(b) Output redirection"
+    echo -e "(c) Access rights"
+    echo -e "(d) Find files"
+    echo -e "(e) Drives and mounts"
+    echo -e "(x) Return to main menu"
+    echo
+}
+
+read_opt_ch4(){
+    echo -n "Please enter your choice: "
+    read choice
+    case $choice in 
+        "a"|"A"|"1")
+            clear_screen
+            chapter_four_files
+            pause
+            ;;
+
+        "b"|"B"|"2")
+            clear_screen
+            chapter_four_redirection
+            pause
+            ;;
+
+        "c"|"C"|"3")
+            clear_screen
+            chapter_four_rights
+            pause
+            ;;
+
+        "d"|"D"|"4")
+            clear_screen
+            chapter_four_find
+            pause
+            ;;
+
+        "e"|"E"|"5")
+            clear_screen
+            chapter_four_disc_state
+            pause
+            ;;
+
+        "x"|"X"|"0")
+            clear_screen
+            break
+            ;;
+
+            *)
+            echo -e "${RED}[${choice_sub}]${STD} is not a valid option"
+            pause
+            ;;
+    esac
+}
+
+ch4(){
+    while true
+	do
+		menu_ch4
+		read_opt_ch4
+	done
+}

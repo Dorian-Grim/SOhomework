@@ -41,3 +41,46 @@ chapter_five_background() {
     run_command  "${ch6[1]}" "${ch6[2]}"
 
 }
+
+menu_ch5(){
+    clear_screen
+    echo "Chapter Five "
+    echo -e "(a) Process information"
+    echo -e "(b) Jobs, Daemons, Background processes & Signals"
+    echo -e "(x) Return to main menu"
+    echo
+}
+
+read_opt_ch5(){
+    echo -n "Please enter your choice: "
+    read choice
+        "a"|"A"|"1")
+            clear_screen
+            chapter_five_processes
+            pause
+            ;;
+
+        "b"|"B"|"2")
+            clear_screen
+            chapter_five_background
+            pause
+            ;;
+
+        "x"|"X")
+            clear_screen
+            break
+            ;;
+        *)
+            echo -e "${RED}[${choice_sub}]${STD} is not a valid option"
+            pause
+            ;;
+    esac
+}
+
+ch5(){
+    while true
+	do
+		menu_ch5
+		read_opt_ch5
+	done
+}
