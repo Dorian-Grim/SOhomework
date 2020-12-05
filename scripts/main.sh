@@ -54,7 +54,7 @@ read_options(){
             ;;
 
 		*)
-            echo -e "${RED}[${choice_main}]${STD} is not a valid option"
+            echo -e "${RED}[${choice}]${STD} is not a valid option"
             pause
             clear_screen
             ;;
