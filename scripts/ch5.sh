@@ -6,7 +6,7 @@ chapter_five_processes() {
     ch3=([1]="ps -u root" [2]="Display processes using the 'ps' command just for the 'root' user ")
     ch4=([1]="ps -F" [2]="Display processes using the 'ps' command with details and formated output")
     ch5=([1]="pstree" [2]="Display process hierarhy using the 'pstree' command ")
-    ch6=([1]="toptop -bn 1 2>&1" [2]="Display processes in realtime using the 'top' command ")
+    ch6=([1]="top -bn 1 2>&1" [2]="Display processes in realtime using the 'top' command ")
     ch7=([1]="ls /proc" [2]="Display the contents of the '/proc' file system ")
     ch8=([1]="head /proc/cpuinfo" [2]="Display cpu from '/proc' ")
     ch9=([1]="head /proc/meminfo" [2]="Display memory from '/proc' ")
