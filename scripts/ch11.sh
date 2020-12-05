@@ -133,3 +133,76 @@ make CFLAGS=-Wall exec" [2]="Executes with internal flag variable and the 'exec'
     run_command  "${cmd22[1]}" "${cmd22[2]}"
 
 }
+
+menu_ch11(){
+    clear_screen
+    echo "Chapter Eleven "
+    echo -e "(a) Simple compiling"
+    echo -e "(b) Speciying exe name"
+    echo -e "(c) Multiple sources compiling"
+    echo -e "(d) Compiling stages"
+    echo -e "(e) Optimising compression and compiling speed"
+    echo -e "(f) Executable file analysis"
+    echo -e "(g) Compiling with make"
+    echo -e "(x) Return to main menu"
+    echo
+}
+
+read_opt_ch11(){
+    echo -n "Please enter your choice: "
+    read choice
+    case $choice in 
+        "a"|"A"|"1")
+            clear_screen
+            chapter_eleven_1
+            pause
+            ;;
+        "b"|"B"|"2")
+            clear_screen
+            chapter_eleven_2
+            pause
+            ;;
+        "c"|"C"|"3")
+            clear_screen
+            chapter_eleven_3
+            pause
+            ;;
+        "d"|"D"|"4")
+            clear_screen
+            chapter_eleven_4
+            pause
+            ;;
+        "e"|"E"|"5")
+            clear_screen
+            chapter_eleven_5
+            pause
+            ;;
+        "f"|"F"|"6")
+            clear_screen
+            chapter_eleven_6
+            pause
+            ;;
+        "g"|"G"|"7")
+            clear_screen
+            chapter_eleven_7
+            pause
+            ;;
+
+        "x"|"X")
+            clear_screen
+            break
+            ;;
+        *)
+            echo -e "${RED}[${choice_sub}]${STD} is not a valid option"
+            pause
+            ;;
+    esac
+}
+
+ch11(){
+    while true
+	do
+		menu_ch11
+		read_opt_ch11
+	done
+}
