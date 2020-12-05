@@ -39,8 +39,8 @@ case $choice_main in
     echo -e "(x) Return to main menu"
     echo
     echo -n "Please enter your choice: "
-    read ch3
-    case $ch3 in 
+    read choice_sub
+    case $choice_sub in 
         "a"|"A"|"1")
         clear_screen
         chapter_three_manage
@@ -76,8 +76,8 @@ case $choice_main in
     echo -e "(x) Return to main menu"
     echo
     echo -n "Please enter your choice: "
-    read ch4
-    case $ch4 in
+    read choice_sub
+    case $choice_sub in
         "a"|"A"|"1")
         clear_screen
         chapter_four_files
@@ -131,8 +131,8 @@ case $choice_main in
     echo -e "(x) Return to main menu"
     echo
     echo -n "Please enter your choice: "
-    read ch5
-    case $ch5 in
+    read choice_sub
+    case $choice_sub in
         "a"|"A"|"1")
         clear_screen
         chapter_five_processes
@@ -172,8 +172,8 @@ case $choice_main in
     echo -e "(x) Return to main menu"
     echo
     echo -n "Please enter your choice: "
-    read ch11
-    case $ch11 in
+    read choice_sub
+    case $choice_sub in
         "a"|"A"|"1")
         clear_screen
         chapter_eleven_1
@@ -232,8 +232,8 @@ case $choice_main in
     echo -e "(x) Return to main menu"
     echo
     echo -n "Please enter your choice: "
-    read ch12
-    case $ch12 in
+    read choice_sub
+    case $choice_sub in
         "a"|"A"|"1")
         clear_screen
         chapter_twelve_1
