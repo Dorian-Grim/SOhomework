@@ -6,6 +6,11 @@ source ./config.sh
 source ./ch3.sh
 source ./ch4.sh
 source ./ch5.sh
+#source ./ch6.sh
+#source ./ch7.sh
+#source ./ch8.sh
+#source ./ch9.sh
+#source ./ch10.sh
 source ./ch11.sh
 source ./ch12.sh
 
