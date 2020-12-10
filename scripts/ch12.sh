@@ -1,3 +1,5 @@
+#!/bin/bash
+
 ch12_1(){
     cmd1=([1]=": > out.txt" [2]="This command truncates out.txt or creates it if it doesn't exist")
     cmd2=([1]="> out.txt" [2]="This does the samem thing but in a simpler form")
