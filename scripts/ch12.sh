@@ -33,9 +33,168 @@ ch12_4(){
     cmd3=([1]="echo -n 'test'" [2]="-n deactivates implicit display of a newline character at the end of the line")
     cmd4=([1]="echo -e -ne 'test\n\t\ttest2\n'" [2]="-e allows interpretation of special characters")
     cmd5=([1]="printf '%s     %03d\n' 'test' 20" [2]="Allows the display of a string of chars at std output")
+    
+
     run_command "${cmd3[1]}" "${cmd3[2]}"
     run_command "${cmd4[1]}" "${cmd4[2]}"
     run_command "${cmd5[1]}" "${cmd5[2]}"
+    
+}
+ch12_5(){
+    cmd1=([1]="echo \"Press enter to key to write input to variable\"
+read a
+echo \$a" [2]="Read is used to read data from standard input and storing them into a variable. If running this command the terminal will await your input")
+    cmd2=([1]="echo \"Press enter to key to write input to screen or ctrl+d to return to the previous menu\"
+cat" [2]="Cat utilitary")
+    cmd3=([1]="echo '#!/bin/bash
+
+echo \"Hello, World!\"
+
+exit 0' > hw.bash
+cat < hw.bash" [2]="Redirecting a file to std input. Will display the content of the file")
+    cmd4=([1]="cat > out.txt
+cat out.txt" [2]="Save to file. Type contents and then press ctrl+D")
+    cmd5=([1]="cat < hw.bash > new.bash" [2]="Input from file to new file. Cool?")
+    cmd6=([1]="gcc main.c 2> err_warn.txt
+cat err_warn.txt" [2]="C errors to text file")
+    cmd6=([1]="gcc main.c 2> /dev/null" [2]="C errors to nowhere, no file, no std output")
+    cmd7=([1]="strace ls &> out.txt
+cat out.txt" [2]="strace output redirect to file")
+    cmd8=([1]="ls > out.txt
+ps >> out.txt
+uptime >> out.txt
+cat out.txt" [2]=">> operator appends")
+    cmd9=([1]="echo '#!/bin/bash
+cat <<END
+multi
+line
+message
+END
+
+echo \"it is over\"' > out.sh
+
+bash out.sh" [2]="<< here document operator. Advantage being that you dont have to write multiple echos")
+    cmd10=([1]="read a b c d <<< 'alfa beta gamma delta'
+
+echo \$a \$b \$c \$d" [2]="<<< operator that allows here strings")
+
+    run_command "${cmd1[1]}" "${cmd1[2]}"
+    run_command "${cmd2[1]}" "${cmd2[2]}"
+    run_command "${cmd3[1]}" "${cmd3[2]}"
+    run_command "${cmd4[1]}" "${cmd4[2]}"
+    run_command "${cmd5[1]}" "${cmd5[2]}"
+    run_command "${cmd6[1]}" "${cmd6[2]}"
+    run_command "${cmd7[1]}" "${cmd7[2]}"
+    run_command "${cmd8[1]}" "${cmd8[2]}"
+    run_command "${cmd9[1]}" "${cmd9[2]}"
+    run_command "${cmd10[1]}" "${cmd10[2]}"
+}
+
+ch12_6(){
+    cmd3=([1]="cat out.txt | grep execve" [2]="Command chaining with the | (pipe) operator")
+    cmd4=([1]="echo 'Enter current day of the week, ex: Mon, and press enter'
+read a
+last -30 | grep \$a" [2]="System authentications from the Monday day")
+    cmd5=([1]="echo 'Enter current day of the week, ex: Mon, and press enter'
+read a
+last -30 | grep \$a | cut -d' ' -f1" [2]="Only users from previous command")
+    cmd6=([1]="echo 'Enter current day of the week, ex: Mon, and press enter'
+read a
+last -30 | grep \$a | cut -d' ' -f1 | sort | uniq" [2]="Sort and uniq utilitaries")
+    cmd7=([1]="echo 'Enter current day of the week, ex: Mon, and press enter'
+read a
+last -30 | grep \$a | cut -d' ' -f1 | sort | uniq | wc -l" [2]="Number of authentications")
+    run_command "${cmd3[1]}" "${cmd3[2]}"
+    run_command "${cmd4[1]}" "${cmd4[2]}"
+    run_command "${cmd5[1]}" "${cmd5[2]}"
+    run_command "${cmd6[1]}" "${cmd7[2]}"
+    run_command "${cmd7[1]}" "${cmd7[2]}"
+}
+ch12_7(){
+    cmd1=([1]="a=0
+b='alfa'
+c='a08ss'
+d=230" [2]="Variable definitions ans assignations")
+    cmd2=([1]="a =0
+b = 'alfa'
+d= 230" [2]="Programming fragility in shell. No spaces after or before the equal sign.")
+    cmd3=([1]="${cmd1[1]}
+echo \$a \$b \$c \$d" [2]="\$ sign references the variable")
+    cmd4=([1]="${cmd1[1]}
+f=\"\$b\$c\"
+echo \$f" [2]="Initialization of variable f with the concatenation of variables b and c")
+    cmd5=([1]="a=4
+c=3
+echo \$((\$a * \$c + 1))" [2]="Arithmetic operations")
+    cmd6=([1]="local_users_num=\$(cat /etc/passwd | grep /home | wc -l)
+echo \$local_users_num" [2]="Initialisation of local_users_num with the number of users which have base directory /home")
+    cmd7=([1]="total_local=\$(\$local_users_num + 1))" [2]="Add the root user to that variable count")
+    cmd8=([1]="num_dirs=\$(ls -l | wc -l)
+echo \$num_dirs" [2]="\$ sign allows command expansion")
+    cmd9=([1]="echo 2+3+4" [2]="Arithmetic operators will be considered simple characters")
+    cmd10=([1]="echo \$((2+3+4))" [2]="Arithmetic expansion")
+    cmd11=([1]="c=3
+b=a
+echo \"c = \$c; b = \$b\"" [2]="Double quotes sign is used to keep the character meaning for special characters: blak( ), comma(,), ampersand(&), pipe(|)")
+    
+    run_command "${cmd1[1]}" "${cmd1[2]}"
+    run_command "${cmd2[1]}" "${cmd2[2]}"
+    run_command "${cmd3[1]}" "${cmd3[2]}"
+    run_command "${cmd4[1]}" "${cmd4[2]}"
+    run_command "${cmd5[1]}" "${cmd5[2]}"
+    run_command "${cmd6[1]}" "${cmd6[2]}"
+    run_command "${cmd8[1]}" "${cmd8[2]}"
+    run_command "${cmd9[1]}" "${cmd9[2]}"
+    run_command "${cmd10[1]}" "${cmd10[2]}"
+    run_command "${cmd11[1]}" "${cmd11[2]}"
+}
+ch12_8(){
+    cmd1=([1]="a=3
+echo \$a
+echo \\\$a" [2]="Notice we cant display the \$ sign")
+    cmd2=([1]="echo \\\"" [2]="Make the double quote character a string")
+    cmd3=([1]="echo \\" [2]="Display backslash (\\)")
+    cmd4=([1]="echo '\" ) ; & $ \'" [2]="The single quote can be used to make special chars a string")
+    cmd5=([1]="dpkg -l n*" [2]="Display all packagese wich start with n")
+    run_command "${cmd1[1]}" "${cmd1[2]}"
+    run_command "${cmd2[1]}" "${cmd2[2]}"
+    run_command "${cmd3[1]}" "${cmd3[2]}"
+    run_command "${cmd4[1]}" "${cmd4[2]}"
+    run_command "${cmd5[1]}" "${cmd5[2]}"
+}
+ch12_9(){
+    cmd1=([1]="echo '#!/bin/bash
+a=1
+if test \$a = 1; then
+echo \"Is 1\"
+elif test \$a = 2; then
+echo \"Is 2\"
+else
+echo \"Is whatever\"
+fi' > out.sh
+bash out.sh" [2]="The if conditional")
+    cmd2=([1]="test \"alfa\" = alfa
+echo \$?
+test \"alfa\" = alf
+echo \$?" [2]="The test utilitary returns 0 if the condition is met, 1 if not.")
+    cmd3=([1]="[ \"alfa\" = alfa ]
+echo \$?
+[ \"alfa\" = alf ]
+echo \$?" [2]="\$? variable is a predefined variable which stores the previous returned value. [] is the shell test operator")
+    cmd3=([1]="echo '#!/bin/bash
+
+user=\$(whoami)
+if grep \"\$user\" /etc/passwd | grep \"/home\"; then
+echo \"User \$user is not homeless.\"
+else
+echo \"User \$user is homeless.\"
+fi' > out.sh
+bash out.sh" [2]="If conditional used on evaluation of grep command")
+    # run_command "${cmd1[1]}" "${cmd1[2]}"
+    # run_command "${cmd2[1]}" "${cmd2[2]}"
+    # run_command "${cmd3[1]}" "${cmd3[2]}"
+    # run_command "${cmd4[1]}" "${cmd4[2]}"
+    # run_command "${cmd5[1]}" "${cmd5[2]}"
 }
 menu_ch12(){
     clear_screen
@@ -44,6 +203,11 @@ menu_ch12(){
     echo -e "(b) Command chaining"
     echo -e "(c) Shell scripts"
     echo -e "(d) Simple shell commands"
+    echo -e "(e) Outputing"
+    echo -e "(f) Command chaining"
+    echo -e "(g) Variables"
+    echo -e "(h) Special characters"
+    echo -e "(i) Decision instructions"
     echo -e "(x) Return to main menu"
     echo
 }
@@ -70,6 +234,31 @@ read_opt_ch12(){
         "d"|"D"|"4")
             clear_screen
             ch12_4
+            pause
+            ;;
+        "e"|"E"|"5")
+            clear_screen
+            ch12_5
+            pause
+            ;;
+        "f"|"F"|"6")
+            clear_screen
+            ch12_6
+            pause
+            ;;
+        "g"|"G"|"7")
+            clear_screen
+            ch12_7
+            pause
+            ;;
+        "h"|"H"|"8")
+            clear_screen
+            ch12_8
+            pause
+            ;;
+        "i"|"I"|"9")
+            clear_screen
+            ch12_9
             pause
             ;;
         "x"|"X")
