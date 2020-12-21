@@ -266,7 +266,30 @@ Calin Antonescu
 Silvia Asavei
 Doina Ignat' > out.txt
 sed 's/Alin/ALIN/' out.txt" [2]="Sed utilitary is used to apply text transformations of a data flow.")
-    for i in $(seq 1 7); do
+    cmd8=([1]="sed '2q' out.txt" [2]="(q) function stops the reading from file entry. Only two lines are shown (quit)")
+    cmd9=([1]="sed '/Calin/q' out.txt" [2]="Display lines until Calin is found")
+    cmd10=([1]="sed 's/\([a-zA-Z]*\) \([a-zA-Z]*\) /\2 \1/' out.txt" [2]="Column substitution using regex. We replace the name column with the surname column")
+    cmd11=([1]="cut -d ':' -f 1,6 /etc/passwd
+echo '=================='
+awk -F ':' '{print \$1,\":\",\$6;}' /etc/passwd" [2]="Awk can be used as an advanced form of the cut utilitary. Cut and awk by comparison")
+    cmd12=([1]="awk -F ':' '{ printf \"|%-15s|%-25s|\\n\", \$1, \$6;}' /etc/passwd" [2]="An advantage of awk is that compared to cut it gives the possibility to format the output.")
+    cmd13=([1]="echo '#!/usr/bin/awk -f
+BEGIN {
+current_users = 0;
+printf \"+--------------+--------------------------+\\n\";
+}
+{
+current_users++;
+if (current_users % 5 == 1)
+printf \"|%-15s|%-25s|\\n\", \$1, \$6;
+}
+END {
+printf \"+---------------+--------------------------+\\n\";
+}' > out.awk
+awk -F ':' -f out.awk /etc/passwd" [2]="Special begin/end clausees allow to apply associated instructions only on the bening and end of the process.")
+    cmd14=([1]="/sbin/ifconfig ehth0 | head -1 | tr -s '' | cut -d ' ' -f 5
+/sbin/ifconfig eth0 | head -1 | awk -F '[\\t]+' '{ print \\\$5; }" [2]="Regex expression usage as a separator")
+    for i in $(seq 1 14); do
         cmd=cmd$i[1]
         desc=cmd$i[2]
         run_command "${!cmd}" "${!desc}"
@@ -274,9 +297,17 @@ sed 's/Alin/ALIN/' out.txt" [2]="Sed utilitary is used to apply text transformat
 }
 
 ch12_12(){
-    cmd1=([1]="echo 'test'" [2]="asd")
-
-    for i in $(seq 1 1); do
+    cmd1=([1]="ls -a
+echo 'tmp1.txt
+tmp2.txt
+tmp3.txt' > out.txt
+xargs touch < out.txt
+echo '======'
+ls -a
+xargs rm < out.txt" [2]="Xargs allows the transmission of arguments to another command as standard input. In this example, we display current folder contents, we create a file with file names, we create the files, display the content again as a before/after, then finnaly we remove those files.")
+    cmd2=([1]="cut -d ':' -f 1 < /etc/passwd | sort | xargs echo" [2]="The same example but with echo as xargs argument")
+    cmd3=([1]="time locate strace" [2]="")
+    for i in $(seq 1 2); do
         cmd=cmd$i[1]
         desc=cmd$i[2]
         run_command "${!cmd}" "${!desc}"
@@ -296,7 +327,7 @@ menu_ch12(){
     echo -e "(i) Decision instructions"
     echo -e "(j) Iterators"
     echo -e "(k) Text filters"
-    echo -e "(l) test asd"
+    echo -e "(l) Commands for working with files"
     echo -e "(x) Return to main menu"
     echo
 }
