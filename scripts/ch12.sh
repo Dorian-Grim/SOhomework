@@ -181,7 +181,7 @@ echo \$?" [2]="The test utilitary returns 0 if the condition is met, 1 if not.")
 echo \$?
 [ \"alfa\" = alf ]
 echo \$?" [2]="\$? variable is a predefined variable which stores the previous returned value. [] is the shell test operator")
-    cmd3=([1]="echo '#!/bin/bash
+    cmd4=([1]="echo '#!/bin/bash
 
 user=\$(whoami)
 if grep \"\$user\" /etc/passwd | grep \"/home\"; then
@@ -190,11 +190,102 @@ else
 echo \"User \$user is homeless.\"
 fi' > out.sh
 bash out.sh" [2]="If conditional used on evaluation of grep command")
+    cmd5=([1]="if ! test 4 -gt 5; then echo \"4 nu e mai mare ca 5\"; else echo \"4 e mai mare ca 5\"; fi" [2]="Negation of a expression")
+    cmd6=([1]="if ((1 < 4)); then echo \"adevarat\"; fi" [2]="... expansion operator")
+    cmd7=([1]="echo '#!/bin/bash
+var=\"Alfa\"
+case \$var in
+[a-z]*) echo \"litera mica\";;
+[A-Z]*) echo \"litera mare\";;
+[0-9]*) echo \"cifra\";;
+*) echo \"altceva\";;
+esac' > out.sh
+bash out.sh" [2]="The case instruction")
+    run_command "${cmd1[1]}" "${cmd1[2]}"
+    run_command "${cmd2[1]}" "${cmd2[2]}"
+    run_command "${cmd3[1]}" "${cmd3[2]}"
+    run_command "${cmd4[1]}" "${cmd4[2]}"
+    run_command "${cmd5[1]}" "${cmd5[2]}"
+    run_command "${cmd6[1]}" "${cmd6[2]}"
+    run_command "${cmd7[1]}" "${cmd7[2]}"
+    run_command "${cmd8[1]}" "${cmd8[2]}"
+}
+ch12_10(){
+    cmd1=([1]="echo '#!/bin/bash
+sum=0
+for i in 1 2 3 4 5 6 7 8 9 10; do
+sum=\$((\$sum + \$i))
+done
+echo \"Suma este: \$sum\"' > out.sh
+bash out.sh" [2]="For iterator")
+    cmd2=([1]="seq 1 4" [2]="Generating a list using seq")
+    cmd3=([1]="echo '#!/bin/bash
+sum=0
+for i in \$(seq 1 100); do
+sum=\$((\$sum + \$i))
+done
+echo \"Suma este: \$sum\"
+' > out.sh
+bash out.sh" [2]="Seq and a for")
+    cmd4=([1]="echo '#!/bin/bash
+i=1
+n=10
+sum=0
+while test \$i -le \$n; do
+sum=\$((\$sum + \$i))
+((i++))
+done
+echo \"Suma este: \$sum\"' > out.sh
+bash out.sh" [2]="Sum of the first 10 natural numbers using while iterator")
+    cmd5=([1]="echo '#!/bin/bash
+i=1
+sum=0
+n=10
+until test \$i -gt \$n; do
+sum=\$((\$sum + \$i))
+i=\$((\$i + 1))
+done
+echo \"Suma este: \$sum\"' > out.sh
+bash out.sh" [2]="Until command resembling while")
     # run_command "${cmd1[1]}" "${cmd1[2]}"
-    # run_command "${cmd2[1]}" "${cmd2[2]}"
     # run_command "${cmd3[1]}" "${cmd3[2]}"
     # run_command "${cmd4[1]}" "${cmd4[2]}"
-    # run_command "${cmd5[1]}" "${cmd5[2]}"
+}
+
+ch12_11(){
+    cmd1=([1]="tr a b <<< 'acadaeaf'
+tr acd  xyz <<< 'acadaeaf'
+tr a-z A-Z <<< 'acadaeaf'
+tr '[:lower:]' '[:upper:]' <<< 'acadaeaf'" [2]="The tr utilitary is used to translate at a caracter level the input informations")
+    cmd2=([1]="tr -s ' ' <<< 'a b c'" [2]="Eliminating chars which are repeating")
+    cmd3=([1]="tr -s a-z A-Z <<< 'aa bb cc'" [2]="Replacing small characters with the same, but capitalized ones")
+    cmd4=([1]="wc < out.sh" [2]="Counting characters in a text file")
+    cmd5=([1]="wc -l < out.sh" [2]="Displaying the number of lines in a text file")
+    cmd6=([1]="grep 'bash' < out.sh" [2]="Finding a certain keyword in a text file")
+    cmd7=([1]="echo 'Andreea Popescu
+Alin lonescu
+Mihai Francu
+Calin Antonescu
+Silvia Asavei
+Doina Ignat' > out.txt
+sed 's/Alin/ALIN/' out.txt" [2]="Sed utilitary is used to apply text transformations of a data flow.")
+    run_command "${cmd1[1]}" "${cmd1[2]}"
+    run_command "${cmd2[1]}" "${cmd2[2]}"
+    run_command "${cmd3[1]}" "${cmd3[2]}"
+    run_command "${cmd4[1]}" "${cmd4[2]}"
+    run_command "${cmd5[1]}" "${cmd5[2]}"
+    run_command "${cmd6[1]}" "${cmd6[2]}"
+    run_command "${cmd7[1]}" "${cmd7[2]}"
+}
+
+ch12_12(){
+    cmd1=([1]="echo 'test'" [2]="asd")
+
+    for i in $(seq 1 1); do
+        cmd=cmd$i[1]
+        desc=cmd$i[2]
+        run_command "${!cmd}" "${!desc}"
+    done
 }
 menu_ch12(){
     clear_screen
@@ -208,6 +299,9 @@ menu_ch12(){
     echo -e "(g) Variables"
     echo -e "(h) Special characters"
     echo -e "(i) Decision instructions"
+    echo -e "(j) Iterators"
+    echo -e "(k) Text filters"
+    echo -e "(l) test asd"
     echo -e "(x) Return to main menu"
     echo
 }
@@ -259,6 +353,21 @@ read_opt_ch12(){
         "i"|"I"|"9")
             clear_screen
             ch12_9
+            pause
+            ;;
+        "j"|"J"|"10")
+            clear_screen
+            ch12_10
+            pause
+            ;;
+        "k"|"K"|"11")
+            clear_screen
+            ch12_11
+            pause
+            ;;
+        "l"|"L"|"12")
+            clear_screen
+            ch12_12
             pause
             ;;
         "x"|"X")
