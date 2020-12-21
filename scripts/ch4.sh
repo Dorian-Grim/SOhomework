@@ -15,19 +15,11 @@ ls -a ~/ > dir3/test3.txt" [2]="Create files using relative path...")
     ch12=([1]="sudo tar cvf new_archive.tar /etc" [2]="Archive files with 'tar'")
     ch13=([1]="sudo tar czvf new_gzip_archive.tar.gz /etc" [2]="Archive files with 'tar' and compressed with 'gzip'")
 
-    run_command  "${ch1[1]}" "${ch1[2]}"
-    run_command  "${ch3[1]}" "${ch2[2]}"
-    run_command  "${ch3[1]}" "${ch3[2]}"
-    run_command  "${ch4[1]}" "${ch4[2]}"
-    run_command  "${ch5[1]}" "${ch5[2]}"
-    run_command  "${ch6[1]}" "${ch6[2]}"
-    run_command  "${ch7[1]}" "${ch7[2]}"
-    run_command  "${ch8[1]}" "${ch8[2]}"
-    run_command  "${ch9[1]}" "${ch9[2]}"
-    run_command  "${ch10[1]}" "${ch10[2]}"
-    run_command  "${ch11[1]}" "${ch11[2]}"
-    run_command  "${ch12[1]}" "${ch12[2]}"
-    run_command  "${ch13[1]}" "${ch13[2]}"
+    for i in $(seq 1 13); do
+        cmd=cmd$i[1]
+        desc=cmd$i[2]
+        run_command "${!cmd}" "${!desc}"
+    done
     
 }
 chapter_four_redirection(){
@@ -41,13 +33,11 @@ chapter_four_redirection(){
     ch6=([1]="ls fisier1.txt fisier4.txt 2>&1 > $list_file" [2]="Store the result and errors of 'ls' command to ${list_file}")
     ch7=([1]="cat $list_file" [2]="Display contents of ${list_file} using 'cat' command")
 
-    run_command  "${ch1[1]}" "${ch1[2]}"
-    run_command  "${ch3[1]}" "${ch2[2]}"
-    run_command  "${ch3[1]}" "${ch3[2]}"
-    run_command  "${ch4[1]}" "${ch4[2]}"
-    run_command  "${ch5[1]}" "${ch5[2]}"
-    run_command  "${ch6[1]}" "${ch6[2]}"
-    run_command  "${ch7[1]}" "${ch7[2]}"
+    for i in $(seq 1 7); do
+        cmd=cmd$i[1]
+        desc=cmd$i[2]
+        run_command "${!cmd}" "${!desc}"
+    done
 
 }
 
@@ -59,12 +49,11 @@ chapter_four_rights() {
     ch5=([1]="chmod u=rwx,g=r,o=- fisier.txt" [2]="Set access rights using literal form")
     ch6=([1]="ls -l fisier.txt" [2]="List files with details")
 
-    run_command  "${ch1[1]}" "${ch1[2]}"
-    run_command  "${ch3[1]}" "${ch2[2]}"
-    run_command  "${ch3[1]}" "${ch3[2]}"
-    run_command  "${ch4[1]}" "${ch4[2]}"
-    run_command  "${ch5[1]}" "${ch5[2]}"
-    run_command  "${ch6[1]}" "${ch6[2]}"
+    for i in $(seq 1 6); do
+        cmd=cmd$i[1]
+        desc=cmd$i[2]
+        run_command "${!cmd}" "${!desc}"
+    done
 
 }
 
@@ -77,13 +66,11 @@ chapter_four_find() {
     ch6=([1]="type cd; type cat" [2]="Determien if 'cd/cat' is a builtin/external/allias command ")
     ch7=([1]="file /bin/id" [2]="Find the file type of '/bin/id' using the 'file' command ")
 
-    run_command  "${ch1[1]}" "${ch1[2]}"
-    run_command  "${ch3[1]}" "${ch2[2]}"
-    run_command  "${ch3[1]}" "${ch3[2]}"
-    run_command  "${ch4[1]}" "${ch4[2]}"
-    run_command  "${ch5[1]}" "${ch5[2]}"
-    run_command  "${ch6[1]}" "${ch6[2]}"
-    run_command  "${ch7[1]}" "${ch7[2]}"
+    for i in $(seq 1 7); do
+        cmd=cmd$i[1]
+        desc=cmd$i[2]
+        run_command "${!cmd}" "${!desc}"
+    done
     
 }
 
@@ -109,17 +96,11 @@ sudo losetup -d /dev/${loopdev}
 sudo -f rm $image
 sudo rmdir /mnt/loop9" [2]="Cleaning up...")
 
-    run_command  "${ch1[1]}" "${ch1[2]}"
-    run_command  "${ch3[1]}" "${ch2[2]}"
-    run_command  "${ch3[1]}" "${ch3[2]}"
-    run_command  "${ch4[1]}" "${ch4[2]}"
-    run_command  "${ch5[1]}" "${ch5[2]}"
-    run_command  "${ch6[1]}" "${ch6[2]}"
-    run_command  "${ch7[1]}" "${ch7[2]}"
-    run_command  "${ch8[1]}" "${ch8[2]}"
-    run_command  "${ch9[1]}" "${ch9[2]}"
-    run_command  "${ch10[1]}" "${ch10[2]}"
-    run_command  "${ch11[1]}" "${ch11[2]}"
+    for i in $(seq 1 11); do
+        cmd=cmd$i[1]
+        desc=cmd$i[2]
+        run_command "${!cmd}" "${!desc}"
+    done
 }
 
 menu_ch4(){

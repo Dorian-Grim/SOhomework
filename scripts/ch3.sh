@@ -12,15 +12,11 @@ chapter_three_manage() {
 sudo useradd --home /home/testh -m -g testg --comment \"Test\" testu" [2]="Create a new user 'testu' having the new group 'testg' and\nthe home '/home/testh'")
     ch9=([1]="testu:testp1234 | chpasswd" [2]="Set the password for the new user 'testu'")
 
-    run_command  "${ch1[1]}" "${ch1[2]}"
-    run_command  "${ch3[1]}" "${ch2[2]}"
-    run_command  "${ch3[1]}" "${ch3[2]}"
-    run_command  "${ch4[1]}" "${ch4[2]}"
-    run_command  "${ch5[1]}" "${ch5[2]}"
-    run_command  "${ch6[1]}" "${ch6[2]}"
-    run_command  "${ch7[1]}" "${ch7[2]}"
-    run_command  "${ch8[1]}" "${ch8[2]}"
-    run_command  "${ch9[1]}" "${ch9[2]}"
+    for i in $(seq 1 9); do
+        cmd=cmd$i[1]
+        desc=cmd$i[2]
+        run_command "${!cmd}" "${!desc}"
+    done
 }
 
 chapter_three_packages() {
@@ -33,14 +29,11 @@ chapter_three_packages() {
     ch7=([1]="sudo apt upgrade" [2]="Download and install the available updates... ")
     ch8=([1]="sudo apt autoremove" [2]="Remove unneeded packages... ")
 
-    run_command  "${ch1[1]}" "${ch1[2]}"
-    run_command  "${ch3[1]}" "${ch2[2]}"
-    run_command  "${ch3[1]}" "${ch3[2]}"
-    run_command  "${ch4[1]}" "${ch4[2]}"
-    run_command  "${ch5[1]}" "${ch5[2]}"
-    run_command  "${ch6[1]}" "${ch6[2]}"
-    run_command  "${ch7[1]}" "${ch7[2]}"
-    run_command  "${ch8[1]}" "${ch8[2]}"
+    for i in $(seq 1 8); do
+        cmd=cmd$i[1]
+        desc=cmd$i[2]
+        run_command "${!cmd}" "${!desc}"
+    done
 }
 
 menu_ch3(){

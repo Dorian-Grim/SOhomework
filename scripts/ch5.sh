@@ -11,17 +11,11 @@ chapter_five_processes() {
     ch10=([1]="tail /proc/partitions" [2]="Display partitions from '/proc' ")
     ch11=([1]="cat /proc/uptime" [2]="Display uptime from '/proc' ")
 
-    run_command  "${ch1[1]}" "${ch1[2]}"
-    run_command  "${ch3[1]}" "${ch2[2]}"
-    run_command  "${ch3[1]}" "${ch3[2]}"
-    run_command  "${ch4[1]}" "${ch4[2]}"
-    run_command  "${ch5[1]}" "${ch5[2]}"
-    run_command  "${ch6[1]}" "${ch6[2]}"
-    run_command  "${ch7[1]}" "${ch7[2]}"
-    run_command  "${ch8[1]}" "${ch8[2]}"
-    run_command  "${ch9[1]}" "${ch9[2]}"
-    run_command  "${ch10[1]}" "${ch10[2]}"
-    run_command  "${ch11[1]}" "${ch11[2]}"
+    for i in $(seq 1 11); do
+        cmd=cmd$i[1]
+        desc=cmd$i[2]
+        run_command "${!cmd}" "${!desc}"
+    done
 
 }
 
@@ -33,12 +27,11 @@ chapter_five_background() {
     ch5=([1]="sudo ps ax" [2]="Display all processes")
     ch6=([1]="kill -l" [2]="Display all 'kill' signals")
     
-    run_command  "${ch1[1]}" "${ch1[2]}"
-    run_command  "${ch3[1]}" "${ch2[2]}"
-    run_command  "${ch3[1]}" "${ch3[2]}"
-    run_command  "${ch4[1]}" "${ch4[2]}"
-    run_command  "${ch5[1]}" "${ch5[2]}"
-    run_command  "${ch6[1]}" "${ch6[2]}"
+    for i in $(seq 1 6); do
+        cmd=cmd$i[1]
+        desc=cmd$i[2]
+        run_command "${!cmd}" "${!desc}"
+    done
 
 }
 
