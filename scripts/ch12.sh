@@ -24,7 +24,7 @@ ch12_2(){
 
 ch12_3(){
     cmd1=([1]="if test 10 -gt 4; then echo 'mai mare'; else echo 'mai mic'; fi" [2]="Sample inline simple script")
-    cmd2=([1]="echo 'echo \"Hello World\"' >> out.sh
+    cmd2=([1]="echo 'echo \"Hello World\"' > out.sh
     
 bash out.sh" [2]="Simplest bash file creation and execution")
 
@@ -69,8 +69,8 @@ cat err_warn.txt" [2]="C errors to text file")
     cmd7=([1]="strace ls &> out.txt
 cat out.txt" [2]="strace output redirect to file")
     cmd8=([1]="ls > out.txt
-ps >> out.txt
-uptime >> out.txt
+ps > out.txt
+uptime > out.txt
 cat out.txt" [2]=">> operator appends")
     cmd9=([1]="echo '#!/bin/bash
 cat <<END
@@ -289,7 +289,7 @@ printf \"+---------------+--------------------------+\\n\";
 awk -F ':' -f out.awk /etc/passwd" [2]="Special begin/end clausees allow to apply associated instructions only on the bening and end of the process.")
     cmd14=([1]="/sbin/ifconfig ehth0 | head -1 | tr -s '' | cut -d ' ' -f 5
 /sbin/ifconfig eth0 | head -1 | awk -F '[\\t]+' '{ print \\\$5; }" [2]="Regex expression usage as a separator")
-    for i in $(seq 1 14); do
+    for i in $(seq 1 13); do
         cmd=cmd$i[1]
         desc=cmd$i[2]
         run_command "${!cmd}" "${!desc}"
@@ -306,7 +306,120 @@ echo '======'
 ls -a
 xargs rm < out.txt" [2]="Xargs allows the transmission of arguments to another command as standard input. In this example, we display current folder contents, we create a file with file names, we create the files, display the content again as a before/after, then finnaly we remove those files.")
     cmd2=([1]="cut -d ':' -f 1 < /etc/passwd | sort | xargs echo" [2]="The same example but with echo as xargs argument")
-    cmd3=([1]="time locate strace" [2]="")
+    cmd3=([1]="time locate strace" [2]="Locate allows the pinpointing of files which names coresponds to a certain pattern sent as a parameter")
+    cmd4=([1]="locate -e strace | xargs file" [2]="Locate is used many times with xargs")
+    cmd5=([1]="find -type f -name '*.c' -print" [2]="The main command used to search the local system")
+    cmd6=([1]="find /usr/bin -type -l" [2]="Entry type is specified with type and l means a symbolic link")
+    cmd7=([1]="find /usr/bin -type d -wholename cpp" [2]="Display folders which contain cpp in their name")
+    cmd8=([1]="find /usr/bin -perm 4755" [2]="Find files with the a specific permission")
+    cmd9=([1]="find /home -type f -mtime +100" [2]="Find files older than 100 days")
+    cmd10=([1]="find /home/ -size +200M" [2]="Find files larger than 200mb")
+    cmd11=([1]="find . -type f -name ' *~' -delete" [2]="Deletion of temporary files from the local user")
+    cmd12=([1]="find -type f -name '*.c' -exec grep -l 'int main*' '{}' ';'" [2]="Display c files which have the main function in them")
+    cmd13=([1]="find /tmp -type f -user $(whoami) -delete" [2]="Deletion of files from tmp directory")
+    for i in $(seq 1 13); do
+        cmd=cmd$i[1]
+        desc=cmd$i[2]
+        run_command "${!cmd}" "${!desc}"
+    done
+}
+
+ch12_13(){
+    cmd1=([1]="ls *.c" [2]="Regular expression to list a C file in the current directory")
+    for i in $(seq 1 1); do
+        cmd=cmd$i[1]
+        desc=cmd$i[2]
+        run_command "${!cmd}" "${!desc}"
+    done
+}
+
+ch12_14(){
+    cmd1=([1]="echo '#!/bin/bash
+echo \"Scriptul are \$# argumente.\"
+echo \"Numele scriptului este \$0.\"
+echo \"Argumentele scriptului sunt \$@.\"
+i=1
+while test \$i -le \$#; do
+echo \"Argumentul \$i este \${!i}.\"
+((i++))
+done' > out.sh
+bash out.sh alfa beta gamma delta" [2]="Bash file which accepts N arguments")
+    cmd2=([1]="echo '#!/bin/bash
+i=1
+for arg in \$@; do
+echo \"Argumentul \$i este \$arg.\"
+((i++))
+done' > out.sh
+bash out.sh alfa beta gamma delta" [2]="Another way of parsing arguments is with a for")
+    cmd3=([1]="echo '#!/bin/bash
+i=1
+while ! test -z \$1; do
+echo \"Argumentul \$i este \$1.\"
+((i++))
+shift
+done' > out.sh
+bash out.sh alfa beta gamma delta" [2]="The shift command is responsible with the moving to the left of arguments. Hence, after running the shift command, information about the left most argument is lost.")
+    cmd4=([1]="echo '#!/bin/bash
+if test \$# -ne 2; then
+echo 'Two arguments are required'
+exit 1
+fi
+if ! test -d \$1; then
+echo 'First argument is not a directory'
+exit 1
+fi
+find \"\$1\" -type f -name \"\$2\"' > out.sh
+bash out.sh . \"*.c\"" [2]="Nice example of a bash script using parameters that finds C files")
+    for i in $(seq 1 4); do
+        cmd=cmd$i[1]
+        desc=cmd$i[2]
+        run_command "${!cmd}" "${!desc}"
+    done
+}
+ch12_15(){
+    cmd1=([1]="echo '#!/bin/bash
+if test \$# -ne 1; then
+echo \"One argument is required: a or b\"
+fi
+function a()
+{
+    echo \"a\"
+}
+function b()
+{
+    echo \"b\"
+}
+case \$1 in
+    \"a\") a;;
+    \"b\") b;;
+    *) echo \"Required arguments are a or b\"; exit 1;;
+esac' > out.sh
+bash out.sh a
+bash out.sh b" [2]="Here we demonstrate the calling of a script function using the parameter of the script")
+    cmd2=([1]="echo '#!/bin/bash
+sum_func()
+{
+    sum=0
+    while ! test -z \$1; do
+    sum=\$((\$sum + \$1))
+    shift
+    done
+}
+sum_func 1 2 3 4 5
+echo \"Sum: \$sum\"
+sum_func 2 3 5 7 11 13 17 19
+echo \"Sum: \$sum\"' > out.sh
+bash out.sh" [2]="Script with a function that accepts arguments")
+    for i in $(seq 1 2); do
+        cmd=cmd$i[1]
+        desc=cmd$i[2]
+        run_command "${!cmd}" "${!desc}"
+    done
+}
+ch12_16(){
+    cmd1=([1]="export myVariable=\"myValue\"
+echo \$myVariable" [2]="Setting an environment variable")
+    cmd2=([1]="env" [2]="Showing enviromnent variables")
     for i in $(seq 1 2); do
         cmd=cmd$i[1]
         desc=cmd$i[2]
@@ -328,6 +441,10 @@ menu_ch12(){
     echo -e "(j) Iterators"
     echo -e "(k) Text filters"
     echo -e "(l) Commands for working with files"
+    echo -e "(m) Regular expressions"
+    echo -e "(n) Parameters of a shell script"
+    echo -e "(o) Functions"
+    echo -e "(p) Environment variables"
     echo -e "(x) Return to main menu"
     echo
 }
@@ -394,6 +511,26 @@ read_opt_ch12(){
         "l"|"L"|"12")
             clear_screen
             ch12_12
+            pause
+            ;;
+        "m"|"M"|"13")
+            clear_screen
+            ch12_13
+            pause
+            ;;
+        "n"|"N"|"14")
+            clear_screen
+            ch12_14
+            pause
+            ;;
+        "o"|"O"|"15")
+            clear_screen
+            ch12_15
+            pause
+            ;;
+        "p"|"P"|"16")
+            clear_screen
+            ch12_16
             pause
             ;;
         "x"|"X")
