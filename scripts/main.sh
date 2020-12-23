@@ -6,6 +6,7 @@ source ./config.sh
 source ./ch3.sh
 source ./ch4.sh
 source ./ch5.sh
+source ./ch9.sh
 source ./ch11.sh
 source ./ch12.sh
 
@@ -35,7 +36,7 @@ read_options(){
 		# "d"|"D"|"6") ch6 ;;
         # "e"|"E"|"7") ch7 ;;
         # "f"|"F"|"8") ch8 ;;
-        # "g"|"G"|"9") ch9 ;;
+        "g"|"G"|"9") ch9 ;;
 		"h"|"H"|"11") ch11 ;;
 		"i"|"I"|"12") ch12 ;;
         "y"|"Y")
