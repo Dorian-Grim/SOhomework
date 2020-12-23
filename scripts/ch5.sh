@@ -1,15 +1,15 @@
 chapter_five_processes() {
-    ch1=([1]="ps" [2]="Display processes using the 'ps' command")
-    ch2=([1]="ps -A" [2]="Display ALL processes using the 'ps'")
-    ch3=([1]="ps -u root" [2]="Display processes using the 'ps' command just for the 'root' user ")
-    ch4=([1]="ps -F" [2]="Display processes using the 'ps' command with details and formated output")
-    ch5=([1]="pstree" [2]="Display process hierarhy using the 'pstree' command ")
-    ch6=([1]="toptop -bn 1 2>&1" [2]="Display processes in realtime using the 'top' command ")
-    ch7=([1]="ls /proc" [2]="Display the contents of the '/proc' file system ")
-    ch8=([1]="head /proc/cpuinfo" [2]="Display cpu from '/proc' ")
-    ch9=([1]="head /proc/meminfo" [2]="Display memory from '/proc' ")
-    ch10=([1]="tail /proc/partitions" [2]="Display partitions from '/proc' ")
-    ch11=([1]="cat /proc/uptime" [2]="Display uptime from '/proc' ")
+    cmd1=([1]="ps" [2]="Display processes using the 'ps' command")
+    cmd2=([1]="ps -A" [2]="Display ALL processes using the 'ps'")
+    cmd3=([1]="ps -u root" [2]="Display processes using the 'ps' command just for the 'root' user ")
+    cmd4=([1]="ps -F" [2]="Display processes using the 'ps' command with details and formated output")
+    cmd5=([1]="pstree" [2]="Display process hierarhy using the 'pstree' command ")
+    cmd6=([1]="toptop -bn 1 2>&1" [2]="Display processes in realtime using the 'top' command ")
+    cmd7=([1]="ls /proc" [2]="Display the contents of the '/proc' file system ")
+    cmd8=([1]="head /proc/cpuinfo" [2]="Display cpu from '/proc' ")
+    cmd9=([1]="head /proc/meminfo" [2]="Display memory from '/proc' ")
+    cmd10=([1]="tail /proc/partitions" [2]="Display partitions from '/proc' ")
+    cmd11=([1]="cat /proc/uptime" [2]="Display uptime from '/proc' ")
 
     for i in $(seq 1 11); do
         cmd=cmd$i[1]
@@ -20,12 +20,12 @@ chapter_five_processes() {
 }
 
 chapter_five_background() {
-    ch1=([1]="sudo updatedb &" [2]="Run some processes in the background")
-    ch2=([1]="top &" [2]="Show the Linux processes")
-    ch3=([1]="jobs" [2]="Display current jobs")
-    ch4=([1]="sudo nohup updatedb &" [2]="Run a process as a daemon")
-    ch5=([1]="sudo ps ax" [2]="Display all processes")
-    ch6=([1]="kill -l" [2]="Display all 'kill' signals")
+    cmd1=([1]="sudo updatedb &" [2]="Run some processes in the background")
+    cmd2=([1]="top &" [2]="Show the Linux processes")
+    cmd3=([1]="jobs" [2]="Display current jobs")
+    cmd4=([1]="sudo nohup updatedb &" [2]="Run a process as a daemon")
+    cmd5=([1]="sudo ps ax" [2]="Display all processes")
+    cmd6=([1]="kill -l" [2]="Display all 'kill' signals")
     
     for i in $(seq 1 6); do
         cmd=cmd$i[1]
