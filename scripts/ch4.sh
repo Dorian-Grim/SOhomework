@@ -1,3 +1,7 @@
+#!/bin/bash
+
+source ./config.sh
+
 chapter_four_files() {
     cmd1=([1]="pwd" [2]="Print the working directory...")
     cmd2=([1]="touch file1.txt" [2]="Create a file...")
@@ -104,6 +108,7 @@ sudo rmdir /mnt/loop9" [2]="Cleaning up...")
 }
 
 menu_ch4(){
+    clear_screen
     echo "Chapter Four - File Systems "
     echo -e "(a) Working with files"
     echo -e "(b) Output redirection"
@@ -116,7 +121,7 @@ menu_ch4(){
 
 read_opt_ch4(){
     echo -n "Please enter your choice: "
-    read choice
+    read -r choice
     case $choice in 
         "a"|"A"|"1")
             clear_screen
@@ -150,11 +155,11 @@ read_opt_ch4(){
 
         "x"|"X"|"0")
             clear_screen
-            break
+            main_menu
             ;;
 
             *)
-            echo -e "${RED}[${choice_sub}]${STD} is not a valid option"
+            echo -e "${RED}[${choice}]${STD} is not a valid option"
             pause
             ;;
     esac
