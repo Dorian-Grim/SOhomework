@@ -1,3 +1,5 @@
+#!/bin/bash
+
 chapter_eleven_1(){
     cmd1=([1]="apt-get install gcc libc6-dev manpages-dev glibc-doc make" [2]="This will install necessary packages for developing C apps under Ubuntu (gcc, libc6-dev).
 It is recomended to install the manual (manpages-dev) and the documentation of the library (glibc-doc).
@@ -161,7 +163,7 @@ menu_ch11(){
 
 read_opt_ch11(){
     echo -n "Please enter your choice: "
-    read choice
+    read -r choice
     case $choice in 
         "a"|"A"|"1")
             clear_screen
@@ -201,10 +203,10 @@ read_opt_ch11(){
 
         "x"|"X")
             clear_screen
-            break
+            main_menu
             ;;
         *)
-            echo -e "${RED}[${choice_sub}]${STD} is not a valid option"
+            echo -e "${RED}[${choice}]${STD} is not a valid option"
             pause
             ;;
     esac

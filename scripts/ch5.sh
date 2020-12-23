@@ -1,3 +1,5 @@
+#!/bin/bash
+
 chapter_five_processes() {
     cmd1=([1]="ps" [2]="Display processes using the 'ps' command")
     cmd2=([1]="ps -A" [2]="Display ALL processes using the 'ps'")
@@ -46,7 +48,8 @@ menu_ch5(){
 
 read_opt_ch5(){
     echo -n "Please enter your choice: "
-    read choice
+    read -r choice
+    case $choice in
         "a"|"A"|"1")
             clear_screen
             chapter_five_processes
@@ -61,10 +64,10 @@ read_opt_ch5(){
 
         "x"|"X")
             clear_screen
-            break
+            main_menu
             ;;
         *)
-            echo -e "${RED}[${choice_sub}]${STD} is not a valid option"
+            echo -e "${RED}[${choice}]${STD} is not a valid option"
             pause
             ;;
     esac

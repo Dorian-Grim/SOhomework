@@ -6,7 +6,11 @@ source ./config.sh
 source ./ch3.sh
 source ./ch4.sh
 source ./ch5.sh
+#source ./ch6.sh
+#source ./ch7.sh
+#source ./ch8.sh
 source ./ch9.sh
+#source ./ch10.sh
 source ./ch11.sh
 source ./ch12.sh
 
@@ -28,7 +32,7 @@ show_menus() {
 }
 read_options(){
 	echo -n "Please enter your choice: " 
-    read choice
+    read -r choice
 	case $choice in
 		"a"|"A"|"3") ch3 ;;
 		"b"|"B"|"4") ch4 ;;
@@ -55,7 +59,7 @@ read_options(){
             ;;
 
 		*)
-            echo -e "${RED}[${choice_main}]${STD} is not a valid option"
+            echo -e "${RED}[${choice}]${STD} is not a valid option"
             pause
             clear_screen
             ;;
