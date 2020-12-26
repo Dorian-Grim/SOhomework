@@ -8,7 +8,7 @@ source ./ch4.sh
 source ./ch5.sh
 #source ./ch6.sh
 #source ./ch7.sh
-#source ./ch8.sh
+source ./ch8.sh
 source ./ch9.sh
 #source ./ch10.sh
 source ./ch11.sh
@@ -39,7 +39,7 @@ read_options(){
 		"c"|"C"|"5") ch5 ;;
 		# "d"|"D"|"6") ch6 ;;
         # "e"|"E"|"7") ch7 ;;
-        # "f"|"F"|"8") ch8 ;;
+        "f"|"F"|"8") ch8 ;;
         "g"|"G"|"9") ch9 ;;
 		"h"|"H"|"11") ch11 ;;
 		"i"|"I"|"12") ch12 ;;
