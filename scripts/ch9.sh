@@ -14,10 +14,10 @@ ssh user@host \"hostname; pwd\"" [2]="ssh utilitary can also run commands remote
 }
 
 ch9_2(){
-cmd1=([1]="scp myFile.exe user@host:~/work" [2]="scp utilitary to copy files from local machine to remote machine in the work folder")
+    cmd1=([1]="scp myFile.exe user@host:~/work" [2]="scp utilitary to copy files from local machine to remote machine in the work folder")
     for i in $(seq 1 1); do
-        cmd=cmdi[1]
-        desc=cmdi[2]
+        cmd=cmd$i[1]
+        desc=cmd$i[2]
         run_command "${!cmd}" "${!desc}"
     done
 }
@@ -25,8 +25,8 @@ ch9_3(){
     cmd1=([1]="ssh-keygen -t rsa" [2]="ssh-keygen utilitary to generate a rsa key")
     cmd2=([1]="ssh-copy-id user@host" [2]="Copy the public key to the remote machine")
     for i in $(seq 1 2); do
-        cmd=cmdi[1]
-        desc=cmdi[2]
+        cmd=cmd$i[1]
+        desc=cmd$i[2]
         run_command "${!cmd}" "${!desc}"
     done
 }
@@ -35,8 +35,8 @@ ch9_4(){
     cmd2=([1]="wget --convert-links -r https://google.ro -o gnulog" [2]="Convert links transforms links from the site so that they can be viewed offline")
     cmd3=([1]="wget -r -1l www.google.ro" [2]="Downloads of all links with e depth of 1")
     for i in $(seq 1 3); do
-        cmd=cmdi[1]
-        desc=cmdi[2]
+        cmd=cmd$i[1]
+        desc=cmd$i[2]
         run_command "${!cmd}" "${!desc}"
     done
 }
@@ -45,16 +45,16 @@ ch9_5(){
     cmd2=([1]="curl -F upload@test01 -F press=OK test.cs.pub.ro/upload.cgi" [2]="Upload a file on a website using curl")
     cmd3=([1]="curl -A \"Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.0)\" test.co" [2]="curl support for chaning identity")
     for i in $(seq 1 1); do
-        cmd=cmdi[1]
-        desc=cmdi[2]
+        cmd=cmd$i[1]
+        desc=cmd$i[2]
         run_command "${!cmd}" "${!desc}"
     done
 }
 ch9_6(){
     cmd1=([1]="ftp ftp://anonymous:anonymous@speedtest.tele2.net" [2]="Connect to a ftp server with anonymous user and password")
     for i in $(seq 1 1); do
-        cmd=cmdi[1]
-        desc=cmdi[2]
+        cmd=cmd$i[1]
+        desc=cmd$i[2]
         run_command "${!cmd}" "${!desc}"
     done
 }
@@ -102,7 +102,7 @@ read_opt_ch9(){
             ;;
         "f"|"F"|"6")
             clear_screen
-            ch9_5
+            ch9_6
             pause
             ;;
         "x"|"X")
