@@ -14,7 +14,7 @@ Follow this beatiful tutorial [here](https://code.visualstudio.com/docs/remote/w
 
 This is more straight forward, just navigate to your local project folder and run [main.sh](scripts/main.sh) like so `bash main.sh`
 
-======
+#
 
 On both scenarios you should see this
 
