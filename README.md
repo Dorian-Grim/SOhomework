@@ -16,4 +16,4 @@ This is more straight forward, just navigate to your local project folder and ru
 
 On both scenarios you should see this
 
-![demo pictures/1.png](demo pictures/1.png)
+![demoPictures/1.png](demoPictures/1.png)
