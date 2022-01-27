@@ -10,7 +10,7 @@ Follow this beatiful tutorial here https://code.visualstudio.com/docs/remote/wsl
 
 # Running the project on a Linux
 
-This is more straight forward, just navigate to your local project folder and run [main.sh](scripts/main.sh)
+This is more straight forward, just navigate to your local project folder and run [main.sh](scripts/main.sh) like so `bash main.sh`
 
 ======
 
